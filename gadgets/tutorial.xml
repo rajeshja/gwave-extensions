@@ -9,7 +9,7 @@
 				<script type="text/javascript">
 					document.writeln("Hello dynamic world.<br/>");
 					document.writeln("Maybe the if block is broken.<br/>");
-					if (wave) {
+					if (wave != undefined) {
 						document.writeln("Entered the if block.<br/>");
 						if (wave.getState()) {
 							document.writeln("The current count is " + wave.getState().get('count') + ".<br/>");
