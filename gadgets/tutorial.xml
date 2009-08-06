@@ -8,6 +8,7 @@
       <div id="content_div" style="height: 50px;">
 				<script type="text/javascript">
 					document.writeln("Hello dynamic world.<br/>");
+					document.writeln("Maybe the if block is broken.<br/>");
 					if (wave) {
 						document.writeln("Entered the if block.<br/>");
 						if (wave.getState()) {
