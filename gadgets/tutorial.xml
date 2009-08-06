@@ -7,15 +7,16 @@
     <![CDATA[ 
       <div id="content_div" style="height: 50px;">
 				<script type="text/javascript">
-					document.writeln("Hello dynamic world.<br>");
+					document.writeln("Hello dynamic world.<br/>");
 					if (wave) {
+						document.writeln("Entered the if block.<br/>");
 						if (wave.getState()) {
-							document.writeln("The current count is " + wave.getState().get('count') + ".<br>");
+							document.writeln("The current count is " + wave.getState().get('count') + ".<br/>");
 						} else {
-							document.writeln("Whoops, no state!.<br>");
+							document.writeln("Whoops, no state!.<br/>");
 						}
 					} else {
-						document.writeln("Whoa, no wave?<br>");
+						document.writeln("Whoa, no wave?<br/>");
 					}
 				</script>
 			</div>
