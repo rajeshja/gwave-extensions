@@ -5,7 +5,20 @@
 	</ModulePrefs>
 	<Content type="html">
     <![CDATA[ 
-      <div id="content_div" style="height: 50px;">The count is not yet set.</div>
+      <div id="content_div" style="height: 50px;">
+				<script type="text/javascript">
+					document.writeln("Hello dynamic world.<br>");
+					if (wave) {
+						if (wave.getState()) {
+							document.writeln("The current count is " + wave.getState().get('count') + ".<br>");
+						} else {
+							document.writeln("Whoops, no state!.<br>");
+						}
+					} else {
+						document.writeln("Whoa, no wave?<br>");
+					}
+				</script>
+			</div>
       <script type="text/javascript">
 	  
       var div = document.getElementById('content_div');
