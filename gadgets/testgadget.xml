@@ -21,6 +21,10 @@
 					border: solid black 1px;
 				}
 				
+				.gadget_footer {
+					clear: both;
+				}
+				
 			</style>
       <div id="content_div">
 				<table class="gadget_table">
@@ -34,6 +38,7 @@
 					<input type="radio" name="choice" value="No"/> No<br/>
 					<input type="radio" name="choice" value="Maybe"/> Maybe<br/>
 				</form>
+				<div class="gadget_footer"/>
 			</div>
     ]]>
     </Content>
