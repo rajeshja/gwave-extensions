@@ -26,7 +26,20 @@
 				}
 				
 			</style>
-			Hello World!
+      <div id="content_div">
+				<table class="gadget_table">
+					<tr><th>Participant</th><th>Choice</th></tr>
+					<tr><th>You</th><th>Yes</th></tr>
+					<tr><th>Me</th><th>No</th></tr>
+					<tr><th>Him</th><th>Maybe</th></tr>
+				</table>
+				<form style="clear: both; display: block;">
+					<input type="radio" name="choice" value="Yes"/> Yes<br/>
+					<input type="radio" name="choice" value="No"/> No<br/>
+					<input type="radio" name="choice" value="Maybe"/> Maybe<br/>
+				</form>
+				<div class="gadget_footer"/>
+			</div>
     ]]>
     </Content>
 </Module>
