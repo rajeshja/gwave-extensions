@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<Module>
+	<ModulePrefs title="State Example" height="120">
+		<Require feature="wave" /> 
+	</ModulePrefs>
+	<Content type="html">
+    <![CDATA[ 
+      <div id="content_div" style="height: 80px; width: 80px;">
+				<table>
+					<tr><th>Participant</th><th>Choice</th></tr>
+					<tr><th>You</th><th>Yes</th></tr>
+					<tr><th>Me</th><th>No</th></tr>
+					<tr><th>Him</th><th>Maybe</th></tr>
+				</table>
+			</div>
+			<form>
+				<input type="radio" name="choice" value="Yes"/> Yes<br/>
+				<input type="radio" name="choice" value="No"/> No<br/>
+				<input type="radio" name="choice" value="Maybe"/> Maybe<br/>
+			</form>
+    ]]>
+    </Content>
+</Module>
