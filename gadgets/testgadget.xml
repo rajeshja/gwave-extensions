@@ -8,9 +8,7 @@
 			<style>
 			
 				#content_div {
-					height: 100px; 
-					width: 100px;
-					background: #dddddd;
+					background: #ddddcc;
 				}
 				
 				.gadget_table {
