@@ -35,8 +35,8 @@
 					<tr><th>Him</th><th>Maybe</th></tr>
 				</table>
 				<form style="clear: both; display: block;">
-					<input type="radio" name="choice" value="Yes"/> Yes<br/>
-					<input type="radio" name="choice" value="No"/> No<br/>
+					<input type="radio" name="choice" value="Yes"/> Yes 
+					<input type="radio" name="choice" value="No"/> No 
 					<input type="radio" name="choice" value="Maybe"/> Maybe<br/>
 					<br/><br/>
 				</form>
