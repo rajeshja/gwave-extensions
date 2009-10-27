@@ -53,6 +53,7 @@
 			}
 		</style>
 		<script type="text/javascript">
+
 			function rate(radiobutton) {
 				row = radiobutton.parentNode.parentNode.parentNode.parentNode;
 				//row = document.getElementById("book" + rownum);
@@ -67,7 +68,7 @@
 						ratingvalue = ratingchoices[i].value;
 					}
 				}
-				ratingcell.innerHTML = (bookname + " has been rated " + ratingvalue + "!");
+				ratingcell.innerHTML = (ratingvalue);
 			}
 
 			function addnewbook() {
