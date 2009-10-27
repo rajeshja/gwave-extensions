@@ -88,7 +88,7 @@
 
 				newbookrow.parentNode.insertBefore(newtr, newbookrow);
 				
-				gadgets.window.adjustHeight(100 + (newcount*18));
+				gadgets.window.adjustHeight(130 + (newcount*23));
 
 				return false;
 			}
