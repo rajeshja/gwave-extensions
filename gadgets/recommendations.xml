@@ -32,18 +32,22 @@
 				padding: 0;
 			}
 
-			.recos fieldset.rate-it {
+			.recos fieldset {
 				border: 0;
 				padding: 1px;
 				margin: 0;
 				font-size: 0.9em;
 			}
 
-			.recos fieldset input {
+			.recos fieldset input[type="radio"] {
 				margin: 0;
 				padding-left: 0px;
-				height: 6px;
-				width: 6px;
+				height: 9px;
+				width: 9px;
+			}
+
+			.recos fieldset input {
+				font-size: 0.9em;
 			}
 		</style>
 		<script type="text/javascript">
