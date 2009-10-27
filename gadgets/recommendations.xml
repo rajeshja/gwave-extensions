@@ -71,7 +71,7 @@
 				ratingcell.innerHTML = (ratingvalue);
 			}
 			
-			function addbook(bookname) {
+			function addbook(bookname, rating) {
 				newbookrow = document.getElementById("newbookentry");
 				newcount=(newbookrow.parentNode.getElementsByTagName("TR").length - 2) + 1;
 
@@ -86,6 +86,11 @@
 				nametd.innerHTML = newbookname;
 				//Set the tr identifier
 				newtr.setAttribute("id", "book"+newcount);
+				//If rating is there, set the cell to it.
+				if (rating) {
+					ratingtd = nametd = newtr.getElementsByTagName("TD")[2];
+					ratingtd.innerHTML(rating);
+				}
 
 				newbookrow.parentNode.insertBefore(newtr, newbookrow);
 				
@@ -112,6 +117,10 @@
 				
 				return (key != 13);
 			}
+			
+			function tempAdder() {
+				addbook("The Dark Materials Trilogy", 5);
+			}
 		</script>
 		<div id="reco-gadget">
 			<table class="recos">
@@ -130,6 +139,7 @@
 							<fieldset>
 								<input type="text" name="newbook"/>
 								<input type="button" value="Add" onclick="addnewbook()"/>
+								<input type="button" value="Temp Add" onclick="tempAdder()"/>
 							</fieldset>
 						</form>
 						</td>
