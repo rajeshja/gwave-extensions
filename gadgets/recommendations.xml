@@ -70,11 +70,9 @@
 				}
 				ratingcell.innerHTML = (ratingvalue);
 			}
-
-			function addnewbook() {
+			
+			function addbook(bookname) {
 				newbookrow = document.getElementById("newbookentry");
-
-				newbookname = newbookrow.getElementsByTagName("FORM")[0].newbook.value;
 				newcount=(newbookrow.parentNode.getElementsByTagName("TR").length - 2) + 1;
 
 				newtr = document.getElementById("row-template").cloneNode(true);
@@ -92,6 +90,14 @@
 				newbookrow.parentNode.insertBefore(newtr, newbookrow);
 				
 				gadgets.window.adjustHeight(((130 + (newcount*23))> 250) ? 250 : (130 + (newcount*23)));
+
+			}
+
+			function addnewbook() {
+				
+				newbookrow = document.getElementById("newbookentry");
+				newbookname = newbookrow.getElementsByTagName("FORM")[0].newbook.value;
+				addbook(newbookname);
 
 				return false;
 			}
