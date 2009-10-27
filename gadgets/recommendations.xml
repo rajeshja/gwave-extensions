@@ -72,21 +72,24 @@
 				newbookrow = document.getElementById("newbookentry");
 
 				newbookname = newbookrow.getElementsByTagName("FORM")[0].newbook.value;
-				newid=(newbookrow.parentNode.getElementsByTagName("TR").length - 2) + 1;
+				newcount=(newbookrow.parentNode.getElementsByTagName("TR").length - 2) + 1;
 
 				newtr = document.getElementById("row-template").cloneNode(true);
 				newtr.removeAttribute("style");
 				
 				//Set the Serial number
 				srtd = newtr.getElementsByTagName("TD")[0];
-				srtd.innerHTML = newid;
+				srtd.innerHTML = newcount;
 				//Set the book name
 				nametd = newtr.getElementsByTagName("TD")[1];
 				nametd.innerHTML = newbookname;
 				//Set the tr identifier
-				newtr.setAttribute("id", "book"+newid);
+				newtr.setAttribute("id", "book"+newcount);
 
 				newbookrow.parentNode.insertBefore(newtr, newbookrow);
+				
+				gadgets.window.adjustHeight(50 + (newcount*15));
+
 				return false;
 			}
 
