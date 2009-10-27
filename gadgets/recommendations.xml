@@ -11,6 +11,8 @@
 			#reco-gadget {
 				font-family: Verdana, Bitstream Vera Sans, sans-serif;
 				font-size: 0.9em;
+				max-height: 400px;
+				overflow: scroll;
 			}
 
 			table.recos {
@@ -19,8 +21,6 @@
 				border-collapse: collapse;
 				font-family: Verdana, Bitstream Vera Sans, sans-serif;
 				font-size: 0.9em;
-				max-height: 400px;
-				overflow: scroll;
 			}
 			
 			.recos td, .recos th {
