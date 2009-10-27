@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?> 
 <Module>
-	<ModulePrefs title="Recommendations Gadget" height="50">
+	<ModulePrefs title="Recommendations Gadget" height="100">
 		<Require feature="wave" /> 
 		<Require feature="dynamic-height" />
 	</ModulePrefs>
@@ -88,7 +88,7 @@
 
 				newbookrow.parentNode.insertBefore(newtr, newbookrow);
 				
-				gadgets.window.adjustHeight(50 + (newcount*15));
+				gadgets.window.adjustHeight(100 + (newcount*18));
 
 				return false;
 			}
