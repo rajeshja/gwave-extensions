@@ -10,7 +10,7 @@
 
 			#reco-gadget {
 				font-family: Verdana, Bitstream Vera Sans, sans-serif;
-				font-size: 0.8em;
+				font-size: 0.9em;
 			}
 
 			table.recos {
@@ -18,7 +18,7 @@
 				padding: 0;
 				border-collapse: collapse;
 				font-family: Verdana, Bitstream Vera Sans, sans-serif;
-				font-size: 0.8em;
+				font-size: 0.9em;
 			}
 			
 			.recos td, .recos th {
@@ -70,22 +70,22 @@
 
 			function addnewbook() {
 				newbookrow = document.getElementById("newbookentry");
+
 				newbookname = newbookrow.getElementsByTagName("FORM")[0].newbook.value;
 				newid=(newbookrow.parentNode.getElementsByTagName("TR").length - 2) + 1;
+
 				newtr = document.getElementById("row-template").cloneNode(true);
 				newtr.removeAttribute("style");
-				//newtd = document.createElement("td");
-				//newtd2 = document.createElement("td");
-				//newtd2.appendChild(document.createTextNode(newbookname));
+				
+				//Set the Serial number
 				srtd = newtr.getElementsByTagName("TD")[0];
 				srtd.innerHTML = newid;
+				//Set the book name
 				nametd = newtr.getElementsByTagName("TD")[1];
 				nametd.innerHTML = newbookname;
+				//Set the tr identifier
 				newtr.setAttribute("id", "book"+newid);
-				//newtd3 = document.createElement("td");
-				//newtr.appendChild(newtd);
-				//newtr.appendChild(newtd2);
-				//newtr.appendChild(newtd3);
+
 				newbookrow.parentNode.insertBefore(newtr, newbookrow);
 				return false;
 			}
@@ -102,7 +102,6 @@
 			}
 		</script>
 		<div id="reco-gadget">
-			<h1>Recommendations</h1>
 			<table class="recos">
 				<thead>
 					<tr>
