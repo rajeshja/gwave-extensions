@@ -89,7 +89,7 @@
 				//If rating is there, set the cell to it.
 				if (rating) {
 					ratingtd = nametd = newtr.getElementsByTagName("TD")[2];
-					ratingtd.innerHTML(rating);
+					ratingtd.innerHTML = rating;
 				}
 
 				newbookrow.parentNode.insertBefore(newtr, newbookrow);
