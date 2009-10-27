@@ -83,7 +83,7 @@
 				srtd.innerHTML = newcount;
 				//Set the book name
 				nametd = newtr.getElementsByTagName("TD")[1];
-				nametd.innerHTML = newbookname;
+				nametd.innerHTML = bookname;
 				//Set the tr identifier
 				newtr.setAttribute("id", "book"+newcount);
 				//If rating is there, set the cell to it.
