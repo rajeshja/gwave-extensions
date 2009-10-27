@@ -112,56 +112,6 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr id="book1">
-						<td>1</td>
-						<td>Book 1</td>
-						<td>
-							<form action="rate.it">
-								<fieldset class="rate-it">
-									<input type="radio" name="rating" value="5" onchange="rate(this)" /> 5 
-									<input type="radio" name="rating" value="4" onchange="rate(this)" /> 4
-									<input type="radio" name="rating" value="3" onchange="rate(this)" /> 3 
-									<input type="radio" name="rating" value="2" onchange="rate(this)" /> 2 
-									<input type="radio" name="rating" value="1" onchange="rate(this)" /> 1 
-								</fieldset>
-							</form>
-						</td>
-					</tr>
-					<tr>
-						<td>2</td>
-						<td>Book 2</td>
-						<td>Score: 25</td>
-					</tr>
-					<tr id="book3">
-						<td>3</td>
-						<td>Book 3</td>
-						<td>
-							<form action="rate.it">
-								<fieldset class="rate-it">
-									<input type="radio" name="rating" value="5" onchange="rate(this)" /> 5 
-									<input type="radio" name="rating" value="4" onchange="rate(this)" /> 4
-									<input type="radio" name="rating" value="3" onchange="rate(this)" /> 3 
-									<input type="radio" name="rating" value="2" onchange="rate(this)" /> 2 
-									<input type="radio" name="rating" value="1" onchange="rate(this)" /> 1 
-								</fieldset>
-							</form>
-						</td>
-					</tr>
-					<tr id="book4">
-						<td>4</td>
-						<td>Book 4</td>
-						<td>
-							<form action="rate.it">
-								<fieldset class="rate-it">
-									<input type="radio" name="rating" value="5" onchange="rate(this)" /> 5 
-									<input type="radio" name="rating" value="4" onchange="rate(this)" /> 4
-									<input type="radio" name="rating" value="3" onchange="rate(this)" /> 3 
-									<input type="radio" name="rating" value="2" onchange="rate(this)" /> 2 
-									<input type="radio" name="rating" value="1" onchange="rate(this)" /> 1 
-								</fieldset>
-							</form>
-						</td>
-					</tr>
 					<tr id="newbookentry">
 						<td></td>
 						<td>Book Name: 
@@ -182,7 +132,7 @@
 							<form action="rate.it">
 								<fieldset class="rate-it">
 									<input type="radio" name="rating" value="5" onchange="rate(this)" /> 5 
-									<input type="radio" name="rating" value="4" onchange="rate(this)" /> 4
+									<input type="radio" name="rating" value="4" onchange="rate(this)" /> 4 
 									<input type="radio" name="rating" value="3" onchange="rate(this)" /> 3 
 									<input type="radio" name="rating" value="2" onchange="rate(this)" /> 2 
 									<input type="radio" name="rating" value="1" onchange="rate(this)" /> 1 
