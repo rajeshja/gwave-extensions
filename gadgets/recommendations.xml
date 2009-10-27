@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?> 
 <Module>
-	<ModulePrefs title="Gadget Testing" height="120">
+	<ModulePrefs title="Gadget Testing">
 		<Require feature="wave" /> 
 		<Require feature="dynamic-height" />
 	</ModulePrefs>
