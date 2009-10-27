@@ -2,6 +2,7 @@
 <Module>
 	<ModulePrefs title="Gadget Testing" height="120">
 		<Require feature="wave" /> 
+		<Require feature="dynamic-height" />
 	</ModulePrefs>
 	<Content type="html">
     <![CDATA[ 
