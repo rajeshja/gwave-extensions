@@ -162,8 +162,10 @@
 						<td></td>
 						<td>Book Name: 
 						<form onkeypress="return disableEnterKey(event)">
-							<input type="text" name="newbook"/>
-							<input type="button" value="Add" onclick="addnewbook()"/>
+							<fieldset>
+								<input type="text" name="newbook"/>
+								<input type="button" value="Add" onclick="addnewbook()"/>
+							</fieldset>
 						</form>
 						</td>
 						<td>
