@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?> 
 <Module>
-	<ModulePrefs title="Recommendations Gadget" height="100">
+	<ModulePrefs title="Recommendations Gadget" height="400">
 		<Require feature="wave" /> 
 		<Require feature="dynamic-height" />
 	</ModulePrefs>
@@ -19,6 +19,8 @@
 				border-collapse: collapse;
 				font-family: Verdana, Bitstream Vera Sans, sans-serif;
 				font-size: 0.9em;
+				max-height: 400px;
+				overflow: scroll;
 			}
 			
 			.recos td, .recos th {
@@ -88,7 +90,7 @@
 
 				newbookrow.parentNode.insertBefore(newtr, newbookrow);
 				
-				gadgets.window.adjustHeight(130 + (newcount*23));
+				gadgets.window.adjustHeight(((130 + (newcount*23))> 400) ? 400 : (130 + (newcount*23)));
 
 				return false;
 			}
