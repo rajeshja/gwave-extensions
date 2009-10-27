@@ -55,8 +55,8 @@
 				bookname = bookcell.textContent;
 				ratingchoices = ratingcell.getElementsByTagName("FORM")[0].rating;
 				ratingvalue = 0;
-				if (ratingchoices.length &lt; 1) return;
-				for (i=0; i &lt; ratingchoices.length; i++) {
+				if (ratingchoices.length < 1) return;
+				for (i=0; i < ratingchoices.length; i++) {
 					if (ratingchoices[i].checked) {
 						ratingvalue = ratingchoices[i].value;
 					}
@@ -175,11 +175,11 @@
 						<td>
 							<form action="rate.it">
 								<fieldset class="rate-it">
-									<input type="radio" name="rating" value="5" onchange="rate('0')" /> 5 
-									<input type="radio" name="rating" value="4" onchange="rate('0')" /> 4
-									<input type="radio" name="rating" value="3" onchange="rate('0')" /> 3 
-									<input type="radio" name="rating" value="2" onchange="rate('0')" /> 2 
-									<input type="radio" name="rating" value="1" onchange="rate('0')" /> 1 
+									<input type="radio" name="rating" value="5" onchange="rate(this)" /> 5 
+									<input type="radio" name="rating" value="4" onchange="rate(this)" /> 4
+									<input type="radio" name="rating" value="3" onchange="rate(this)" /> 3 
+									<input type="radio" name="rating" value="2" onchange="rate(this)" /> 2 
+									<input type="radio" name="rating" value="1" onchange="rate(this)" /> 1 
 								</fieldset>
 							</form>
 						</td>
