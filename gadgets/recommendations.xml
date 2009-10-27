@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<Module>
+	<ModulePrefs title="Gadget Testing" height="120">
+		<Require feature="wave" /> 
+	</ModulePrefs>
+	<Content type="html">
+    <![CDATA[ 
+		<style type="text/css">
+
+			#reco-gadget {
+				font-family: Verdana, Bitstream Vera Sans, sans-serif;
+				font-size: 0.8em;
+			}
+
+			table.recos {
+				margin: 0;
+				padding: 0;
+				border-collapse: collapse;
+				font-family: Verdana, Bitstream Vera Sans, sans-serif;
+				font-size: 0.8em;
+			}
+			
+			.recos td, .recos th {
+				border: solid black 1px;
+				margin: 0;
+				padding: 0;
+			}
+
+			.recos form {
+				margin: 0;
+				padding: 0;
+			}
+
+			.recos fieldset.rate-it {
+				border: 0;
+				padding: 1px;
+				margin: 0;
+				font-size: 0.9em;
+			}
+
+			.recos fieldset input {
+				margin: 0;
+				padding-left: 0px;
+				height: 6px;
+				width: 6px;
+			}
+		</style>
+		<script type="text/javascript">
+			function rate(radiobutton) {
+				row = radiobutton.parentNode.parentNode.parentNode.parentNode;
+				//row = document.getElementById("book" + rownum);
+				bookcell = row.getElementsByTagName("TD")[1];
+				ratingcell = row.getElementsByTagName("TD")[2];
+				bookname = bookcell.textContent;
+				ratingchoices = ratingcell.getElementsByTagName("FORM")[0].rating;
+				ratingvalue = 0;
+				if (ratingchoices.length &lt; 1) return;
+				for (i=0; i &lt; ratingchoices.length; i++) {
+					if (ratingchoices[i].checked) {
+						ratingvalue = ratingchoices[i].value;
+					}
+				}
+				ratingcell.innerHTML = (bookname + " has been rated " + ratingvalue + "!");
+			}
+
+			function addnewbook() {
+				newbookrow = document.getElementById("newbookentry");
+				newbookname = newbookrow.getElementsByTagName("FORM")[0].newbook.value;
+				newid=(newbookrow.parentNode.getElementsByTagName("TR").length - 2) + 1;
+				newtr = document.getElementById("row-template").cloneNode(true);
+				newtr.removeAttribute("style");
+				//newtd = document.createElement("td");
+				//newtd2 = document.createElement("td");
+				//newtd2.appendChild(document.createTextNode(newbookname));
+				srtd = newtr.getElementsByTagName("TD")[0];
+				srtd.innerHTML = newid;
+				nametd = newtr.getElementsByTagName("TD")[1];
+				nametd.innerHTML = newbookname;
+				newtr.setAttribute("id", "book"+newid);
+				//newtd3 = document.createElement("td");
+				//newtr.appendChild(newtd);
+				//newtr.appendChild(newtd2);
+				//newtr.appendChild(newtd3);
+				newbookrow.parentNode.insertBefore(newtr, newbookrow);
+				return false;
+			}
+
+			function disableEnterKey(e)
+			{
+				var key;     
+				if(window.event)
+					key = window.event.keyCode; //IE
+				else
+					key = e.which; //firefox     
+				
+				return (key != 13);
+			}
+		</script>
+		<div id="reco-gadget">
+			<h1>Recommendations</h1>
+			<table class="recos">
+				<thead>
+					<tr>
+						<th>Rank</th>
+						<th>Book</th>
+						<th>Rating (5=Love it, 1=Trash)</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr id="book1">
+						<td>1</td>
+						<td>Book 1</td>
+						<td>
+							<form action="rate.it">
+								<fieldset class="rate-it">
+									<input type="radio" name="rating" value="5" onchange="rate(this)" /> 5 
+									<input type="radio" name="rating" value="4" onchange="rate(this)" /> 4
+									<input type="radio" name="rating" value="3" onchange="rate(this)" /> 3 
+									<input type="radio" name="rating" value="2" onchange="rate(this)" /> 2 
+									<input type="radio" name="rating" value="1" onchange="rate(this)" /> 1 
+								</fieldset>
+							</form>
+						</td>
+					</tr>
+					<tr>
+						<td>2</td>
+						<td>Book 2</td>
+						<td>Score: 25</td>
+					</tr>
+					<tr id="book3">
+						<td>3</td>
+						<td>Book 3</td>
+						<td>
+							<form action="rate.it">
+								<fieldset class="rate-it">
+									<input type="radio" name="rating" value="5" onchange="rate(this)" /> 5 
+									<input type="radio" name="rating" value="4" onchange="rate(this)" /> 4
+									<input type="radio" name="rating" value="3" onchange="rate(this)" /> 3 
+									<input type="radio" name="rating" value="2" onchange="rate(this)" /> 2 
+									<input type="radio" name="rating" value="1" onchange="rate(this)" /> 1 
+								</fieldset>
+							</form>
+						</td>
+					</tr>
+					<tr id="book4">
+						<td>4</td>
+						<td>Book 4</td>
+						<td>
+							<form action="rate.it">
+								<fieldset class="rate-it">
+									<input type="radio" name="rating" value="5" onchange="rate(this)" /> 5 
+									<input type="radio" name="rating" value="4" onchange="rate(this)" /> 4
+									<input type="radio" name="rating" value="3" onchange="rate(this)" /> 3 
+									<input type="radio" name="rating" value="2" onchange="rate(this)" /> 2 
+									<input type="radio" name="rating" value="1" onchange="rate(this)" /> 1 
+								</fieldset>
+							</form>
+						</td>
+					</tr>
+					<tr id="newbookentry">
+						<td></td>
+						<td>Book Name: 
+						<form onkeypress="return disableEnterKey(event)">
+							<input type="text" name="newbook"/>
+							<input type="button" value="Add" onclick="addnewbook()"/>
+						</form>
+						</td>
+						<td>
+						</td>
+					</tr>
+					<tr id="row-template" style="display: none;">
+						<td>0</td>
+						<td>Book 0</td>
+						<td>
+							<form action="rate.it">
+								<fieldset class="rate-it">
+									<input type="radio" name="rating" value="5" onchange="rate('0')" /> 5 
+									<input type="radio" name="rating" value="4" onchange="rate('0')" /> 4
+									<input type="radio" name="rating" value="3" onchange="rate('0')" /> 3 
+									<input type="radio" name="rating" value="2" onchange="rate('0')" /> 2 
+									<input type="radio" name="rating" value="1" onchange="rate('0')" /> 1 
+								</fieldset>
+							</form>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+    ]]>
+    </Content>
+</Module>
