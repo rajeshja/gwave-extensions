@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?> 
 <Module>
-	<ModulePrefs title="Recommendations Gadget">
+	<ModulePrefs title="Recommendations Gadget" height="50">
 		<Require feature="wave" /> 
 		<Require feature="dynamic-height" />
 	</ModulePrefs>
@@ -106,7 +106,7 @@
 				<thead>
 					<tr>
 						<th>Rank</th>
-						<th>Book</th>
+						<th>Book Name</th>
 						<th>Rating (5=Love it, 1=Trash)</th>
 					</tr>
 				</thead>
