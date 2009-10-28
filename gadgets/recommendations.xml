@@ -123,6 +123,20 @@
 			}
 			
 			function init() {
+				if (wave && wave.isInWaveContainer()) {
+					wave.setStateCallback(stateUpdated);
+				}
+			}
+			
+			function stateUpdated() {
+				if (wave.getState().get('newBookAdded') == 1) {
+					;
+				} else {
+					showBookList();
+				}
+			}
+			
+			function showBookList() {
 				state = wave.getState();
 				if (!state) {
 					addbook("No state available");
@@ -131,7 +145,7 @@
 				}
 			}
 			
-			gadgets.util.registerOnLoadHandler(init);
+			//gadgets.util.registerOnLoadHandler(init);
 
 		</script>
 		<div id="reco-gadget">
