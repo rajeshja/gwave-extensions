@@ -98,7 +98,7 @@
 				books = state.get('books');
 				if (!books) {
 					books = new Array();
-					books[0] = {"name":bookname, "rating":0};
+					books[0] = bookname;
 				} else {
 					books[books.length] = bookname;
 				}
