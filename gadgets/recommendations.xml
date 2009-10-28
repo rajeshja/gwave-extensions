@@ -105,9 +105,12 @@
 				
 				state.submitDelta({'books': books});
 				count = parseInt(state.get('count'));
+				if (!count) {
+					count = 0;
+				}
 				state.submitDelta({'count': count+1});
 
-				gadgets.window.adjustHeight(((130 + (newcount*23))> 250) ? 250 : (130 + (newcount*23)));
+				gadgets.window.adjustHeight(((130 + (newcount*28))> 250) ? 250 : (130 + (newcount*28)));
 
 			}
 
