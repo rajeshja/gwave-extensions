@@ -126,12 +126,11 @@
 				if (wave && wave.isInWaveContainer()) {
 					wave.setStateCallback(stateUpdated);
 				}
-				addbook("Just inited");
 			}
 			
 			function stateUpdated() {
 				if (wave.getState().get('newBookAdded') == 1) {
-					addbook("A new book was added?");
+					document.getElementById("messages").innerHTML += "A new book was added?";
 				} else {
 					showBookList();
 				}
@@ -140,9 +139,9 @@
 			function showBookList() {
 				state = wave.getState();
 				if (!state) {
-					addbook("No state available");
+					document.getElementById("messages").innerHTML += "No state available.";
 				} else if (!state.get('books')) {
-					addbook("No books available");
+					document.getElementById("messages").innerHTML += "No books available.";
 				} else if (state.get('books').length && state.get('books').length > 0) {
 					
 				}
@@ -152,6 +151,7 @@
 
 		</script>
 		<div id="reco-gadget">
+			<div id="messages"></div>
 			<table class="recos">
 				<thead>
 					<tr>
