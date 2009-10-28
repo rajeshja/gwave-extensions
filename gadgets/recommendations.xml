@@ -148,7 +148,7 @@
 				}
 			}
 			
-			//gadgets.util.registerOnLoadHandler(init);
+			gadgets.util.registerOnLoadHandler(init);
 
 		</script>
 		<div id="reco-gadget">
