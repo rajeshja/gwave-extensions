@@ -52,6 +52,8 @@
 				font-size: 0.9em;
 			}
 		</style>
+		<script type="text/javascript" 
+						src="http://pune-gtug-wave-samples.googlecode.com/svn/trunk/wave-polling-gadget/json2.js"></script>
 		<script type="text/javascript">
 
 			function rate(radiobutton) {
@@ -98,12 +100,13 @@
 				books = state.get('books');
 				if (!books) {
 					books = new Array();
-					books[0] = bookname;
+					books[0] = {"name":bookname, "rating":0};
 				} else {
-					books[books.length] = bookname;
+					books[books.length] = {"name":bookname, "rating":0};
 				}
 				
-				state.submitDelta({'books': books});
+				booksstring = JSON.stringify(books);
+				state.submitDelta({'books': booksstring});
 				count = parseInt(state.get('count'));
 				if (!count) {
 					count = 0;
