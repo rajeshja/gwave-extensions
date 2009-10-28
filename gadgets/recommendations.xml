@@ -126,6 +126,7 @@
 				if (wave && wave.isInWaveContainer()) {
 					wave.setStateCallback(stateUpdated);
 				}
+				addbook("Just inited");
 			}
 			
 			function stateUpdated() {
