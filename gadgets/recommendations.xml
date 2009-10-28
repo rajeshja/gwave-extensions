@@ -163,7 +163,7 @@
 						if (books[i].rating = 0) {
 							addbook(books[i].name);
 						} else {
-							addbook(books[i].name, book[i].rating);
+							addbook(books[i].name, books[i].rating);
 						}
 					}
 				}
