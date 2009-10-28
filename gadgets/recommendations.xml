@@ -94,6 +94,17 @@
 
 				newbookrow.parentNode.insertBefore(newtr, newbookrow);
 				
+				state = wave.getState()
+				books = state.get('books');
+				if (!books) {
+					books = new Array();
+					books[0] = {"name":bookname, "rating":0};
+				} else {
+					books[books.length] = {"name":bookname, "rating":0};
+				}
+				
+				state.submitDelta(books);
+
 				gadgets.window.adjustHeight(((130 + (newcount*23))> 250) ? 250 : (130 + (newcount*23)));
 
 			}
@@ -103,7 +114,7 @@
 				newbookrow = document.getElementById("newbookentry");
 				newbookname = newbookrow.getElementsByTagName("FORM")[0].newbook.value;
 				addbook(newbookname);
-
+				
 				return false;
 			}
 
@@ -116,10 +127,6 @@
 					key = e.which; //firefox     
 				
 				return (key != 13);
-			}
-			
-			function tempAdder() {
-				addbook("The Dark Materials Trilogy", 5);
 			}
 			
 			function init() {
@@ -143,7 +150,14 @@
 				} else if (!state.get('books')) {
 					document.getElementById("messages").innerHTML += "No books available.";
 				} else if (state.get('books').length && state.get('books').length > 0) {
-					
+					books = state.get('books');
+					for (i=0; i<books.length; i++) {
+						if (book[i].rating = 0) {
+							addbook(book[i].name);
+						} else {
+							addbook(book[i].name, book[i].rating);
+						}
+					}
 				}
 			}
 			
