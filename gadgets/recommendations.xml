@@ -97,7 +97,7 @@
 				newbookrow.parentNode.insertBefore(newtr, newbookrow);
 				
 				state = wave.getState()
-				books = state.get('books');
+				books = eval(state.get('books'));
 				if (!books) {
 					books = new Array();
 					books[0] = {"name":bookname, "rating":0};
@@ -160,11 +160,11 @@
 				} else if (state.get('books').length && state.get('books').length > 0) {
 					books = state.get('books');
 					for (i=0; i<books.length; i++) {
-						//if (book[i].rating = 0) {
-						addbook(book[i]);
-						//} else {
-						//	addbook(book[i].name, book[i].rating);
-						//}
+						if (book[i].rating = 0) {
+							addbook(books[i].name);
+						} else {
+							addbook(books[i].name, book[i].rating);
+						}
 					}
 				}
 				document.getElementById("messages").innerHTML += "<br>Count is " + state.get('count');
