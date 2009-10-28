@@ -73,7 +73,7 @@
 				ratingcell.innerHTML = (ratingvalue);
 			}
 			
-			function addbook(bookname, rating) {
+			function addbookrow(bookname, rating) {
 				newbookrow = document.getElementById("newbookentry");
 				newcount=(newbookrow.parentNode.getElementsByTagName("TR").length - 2) + 1;
 
@@ -95,14 +95,30 @@
 				}
 
 				newbookrow.parentNode.insertBefore(newtr, newbookrow);
-				
+
+				gadgets.window.adjustHeight(((130 + (newcount*28))> 250) ? 250 : (130 + (newcount*28)));
+
+			}
+			
+			function addbookstate(bookname) {
 				state = wave.getState()
 				books = eval(state.get('books'));
 				if (!books) {
 					books = new Array();
 					books[0] = {"name":bookname, "rating":0};
 				} else {
-					books[books.length] = {"name":bookname, "rating":0};
+					//Should first check if the book already exists.
+					var exists=false;
+					for (i=0; i<books.length; i++) {
+						if (books[i] == bookname) {
+							exists=true;
+						}
+					}
+					if (exists) {
+						document.getElementById("messages").innerHTML = "Duplicate addition!";
+					} else {
+						books[books.length] = {"name":bookname, "rating":0};
+					}
 				}
 				
 				booksstring = JSON.stringify(books);
@@ -112,17 +128,15 @@
 					count = 0;
 				}
 				state.submitDelta({'count': count+1});
-
-				gadgets.window.adjustHeight(((130 + (newcount*28))> 250) ? 250 : (130 + (newcount*28)));
-
 			}
 
 			function addnewbook() {
 				
 				newbookrow = document.getElementById("newbookentry");
 				newbookname = newbookrow.getElementsByTagName("FORM")[0].newbook.value;
-				addbook(newbookname);
-				
+				addbookrow(newbookname);
+				addbookstate(newbookname);
+
 				return false;
 			}
 
@@ -135,6 +149,10 @@
 					key = e.which; //firefox     
 				
 				return (key != 13);
+			}
+			
+			function tempClear() {
+				wave.getState().submitDelta({'books': [] });
 			}
 			
 			function init() {
@@ -161,9 +179,9 @@
 					books = state.get('books');
 					for (i=0; i<books.length; i++) {
 						if (books[i].rating = 0) {
-							addbook(books[i].name);
+							addbookrow(books[i].name);
 						} else {
-							addbook(books[i].name, books[i].rating);
+							addbookrow(books[i].name, books[i].rating);
 						}
 					}
 				}
@@ -191,7 +209,7 @@
 							<fieldset>
 								<input type="text" name="newbook"/>
 								<input type="button" value="Add" onclick="addnewbook()"/>
-								<input type="button" value="Temp Add" onclick="tempAdder()"/>
+								<input type="button" value="Clear books" onclick="tempClear()"/>
 							</fieldset>
 						</form>
 						</td>
