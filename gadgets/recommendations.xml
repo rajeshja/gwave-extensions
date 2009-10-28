@@ -121,6 +121,16 @@
 			function tempAdder() {
 				addbook("The Dark Materials Trilogy", 5);
 			}
+			
+			function init() {
+				state = wave.getState();
+				if (!state) {
+					addbook("No books available");
+				}
+			}
+			
+			gadgets.util.registerOnLoadHandler(init);
+
 		</script>
 		<div id="reco-gadget">
 			<table class="recos">
