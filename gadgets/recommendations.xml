@@ -130,7 +130,7 @@
 			
 			function stateUpdated() {
 				if (wave.getState().get('newBookAdded') == 1) {
-					;
+					addbook("A new book was added?");
 				} else {
 					showBookList();
 				}
@@ -142,6 +142,8 @@
 					addbook("No state available");
 				} else if (!state.get('books')) {
 					addbook("No books available");
+				} else if (state.get('books').length && state.get('books').length > 0) {
+					
 				}
 			}
 			
