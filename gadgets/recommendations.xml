@@ -100,11 +100,11 @@
 					books = new Array();
 					books[0] = {"name":bookname, "rating":0};
 				} else {
-					books[books.length] = {"name":bookname, "rating":0};
+					books[books.length] = bookname;
 				}
 				
 				state.submitDelta({'books': books});
-				count = state.get('count');
+				count = parseInt(state.get('count'));
 				state.submitDelta({'count': count+1});
 
 				gadgets.window.adjustHeight(((130 + (newcount*23))> 250) ? 250 : (130 + (newcount*23)));
@@ -154,11 +154,11 @@
 				} else if (state.get('books').length && state.get('books').length > 0) {
 					books = state.get('books');
 					for (i=0; i<books.length; i++) {
-						if (book[i].rating = 0) {
-							addbook(book[i].name);
-						} else {
-							addbook(book[i].name, book[i].rating);
-						}
+						//if (book[i].rating = 0) {
+						addbook(book[i]);
+						//} else {
+						//	addbook(book[i].name, book[i].rating);
+						//}
 					}
 				}
 				document.getElementById("messages").innerHTML += "<br>Count is " + state.get('count');
