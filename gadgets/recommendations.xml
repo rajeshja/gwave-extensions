@@ -104,6 +104,8 @@
 				}
 				
 				state.submitDelta({'books': books});
+				count = state.get('count');
+				state.submitDelta({'count': count+1});
 
 				gadgets.window.adjustHeight(((130 + (newcount*23))> 250) ? 250 : (130 + (newcount*23)));
 
@@ -159,6 +161,7 @@
 						}
 					}
 				}
+				document.getElementById("messages").innerHTML += "<br>Count is " + state.get('count');
 			}
 			
 			gadgets.util.registerOnLoadHandler(init);
