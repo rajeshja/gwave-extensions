@@ -160,7 +160,7 @@
 				} else if (state.get('books').length && state.get('books').length > 0) {
 					books = state.get('books');
 					for (i=0; i<books.length; i++) {
-						if (book[i].rating = 0) {
+						if (books[i].rating = 0) {
 							addbook(books[i].name);
 						} else {
 							addbook(books[i].name, book[i].rating);
