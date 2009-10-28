@@ -125,6 +125,8 @@
 			function init() {
 				state = wave.getState();
 				if (!state) {
+					addbook("No state available");
+				} else if (!state.get('books')) {
 					addbook("No books available");
 				}
 			}
