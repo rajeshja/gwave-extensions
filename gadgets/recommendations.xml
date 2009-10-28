@@ -103,7 +103,7 @@
 					books[books.length] = {"name":bookname, "rating":0};
 				}
 				
-				state.submitDelta(books);
+				state.submitDelta({"books": books});
 
 				gadgets.window.adjustHeight(((130 + (newcount*23))> 250) ? 250 : (130 + (newcount*23)));
 
