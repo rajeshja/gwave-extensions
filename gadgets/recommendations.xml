@@ -200,7 +200,7 @@
 			}
 
 			function log(msg) {
-				appendMessage("LOG:" +msg)
+				//appendMessage("LOG:" +msg)
 			}
 
 			function message(msg) {
@@ -269,7 +269,6 @@
 
 		</script>
 		<div id="reco-gadget">
-			<div id="messages"></div>
 			<table class="recos">
 				<thead>
 					<tr>
@@ -312,6 +311,7 @@
 					</tr>
 				</tbody>
 			</table>
+			<div id="messages"></div>
 		</div>
     ]]>
     </Content>
