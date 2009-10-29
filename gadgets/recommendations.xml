@@ -179,6 +179,7 @@
 			}
 			
 			function stateUpdated() {
+				log("Value of newboodAdded is " + wave.getState().get('newBookAdded'));
 				if (parseInt(wave.getState().get('newBookAdded')) == 1) {
 					log("A new book was added?");
 				} else {
