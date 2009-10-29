@@ -247,12 +247,13 @@
 						currcount=(newbookrow.parentNode.getElementsByTagName("TR").length - 2);
 						if (books.length > currcount) {
 							for (i=currcount; i<books.length; i++) {
-								if (books[i].rating = 0) {
+								currrating = books[i].rating;
+								if ( currrating == 0) {
 									log("Calling to add withOUT rating");
 									addbookrow(books[i].name);
 								} else {
-									log("Calling to add with rating " + books[i].rating);
-									addbookrow(books[i].name, books[i].rating);
+									log("Calling to add with rating " + currrating);
+									addbookrow(books[i].name, currrating);
 								}
 							}
 						}
