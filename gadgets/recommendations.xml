@@ -84,7 +84,7 @@
 				}
 				booksstring = JSON.stringify(books);
 				wave.getState().submitDelta({'books': booksstring});
-				log("And books is now saved as " + wave.getState().get('books');
+				log("And books is now saved as " + wave.getState().get('books'));
 			}
 
 			function addbookrow(bookname, rating) {
