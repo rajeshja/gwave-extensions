@@ -119,7 +119,7 @@
 					//Should first check if the book already exists.
 					var exists=false;
 					for (i=0; i<books.length; i++) {
-						if (books[i].toLowerCase() == bookname.toLowerCase()) {
+						if (books[i].name.toLowerCase() == bookname.toLowerCase()) {
 							exists=true;
 						}
 					}
