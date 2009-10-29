@@ -72,11 +72,19 @@
 				}
 				ratingcell.innerHTML = (ratingvalue);
 				
-				books = getSavedBooks();
-				
-				
+				saveRating(bookname, rating);
 			}
 			
+			function saveRating(name, rating) {
+				books = getSavedBooks();
+				index = findBookIndex(name);
+				if (index != -1) {
+					books[index].rating = rating;
+				}
+				booksstring = JSON.stringify(books);
+				wave.getState().submitDelta({'books': booksstring});
+			}
+
 			function addbookrow(bookname, rating) {
 				newbookrow = document.getElementById("newbookentry");
 				newcount=(newbookrow.parentNode.getElementsByTagName("TR").length - 2) + 1;
@@ -104,7 +112,7 @@
 
 			}
 			
-			function addbookstate(bookname) {
+			function addbookstate(bookname, rating) {
 				state = wave.getState();
 				log("Original books element = " + state.get('books'));
 				books = getSavedBooks();
@@ -118,7 +126,11 @@
 
 				if (!books) {
 					books = new Array();
-					books[0] = {"name":bookname, "rating":0};
+					if (rating) {
+						books[0] = {"name":bookname, "rating": rating};
+					} else {
+						books[0] = {"name":bookname, "rating": 0};
+					}
 				} else {
 					//Should first check if the book already exists.
 					var exists=false;
@@ -130,7 +142,11 @@
 						message("Duplicate addition!");
 						return false;
 					} else {
-						books[books.length] = {"name":bookname, "rating":0};
+						if (rating) {
+							books[books.length] = {"name":bookname, "rating": rating};
+						} else {
+							books[books.length] = {"name":bookname, "rating": 0};
+						}
 						booksstring = JSON.stringify(books);
 						state.submitDelta({'books': booksstring});
 						count = parseInt(state.get('count'));
@@ -158,12 +174,19 @@
 			function findBook(name) {
 				var book;
 				books = getSavedBooks();
+				
+				return books[findBookIndex(name)];
+			}
+
+			function findBookIndex(name) {
+				var book;
+				books = getSavedBooks();
 				for (i=0; i<books.length; i++) {
 					if (books[i].name.toLowerCase() == name.toLowerCase()) {
-						book=books[i];
+						return i;
 					}
 				}
-				return book;
+				return -1;
 			}
 			
 			function getSavedBooks() {
@@ -175,6 +198,10 @@
 			}
 
 			function message(msg) {
+				document.getElementById("messages").innerHTML = msg + "<br/>"; 
+			}
+
+			function appendMessage(msg) {
 				document.getElementById("messages").innerHTML += msg + "<br/>"; 
 			}
 
