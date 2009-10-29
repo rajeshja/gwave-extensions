@@ -147,7 +147,7 @@
 				log("Added Row");
 				addbookstate(newbookname);
 				log("Added State");
-				wave.getState().submitDelta('newBookAdded', 1);
+				wave.getState().submitDelta({'newBookAdded': 1});
 				log("Logged addition of State");
 
 				return false;
@@ -169,7 +169,7 @@
 			}
 			
 			function tempClear() {
-				wave.getState().submitDelta({'books': [] });
+				wave.getState().submitDelta({'books': '[]' });
 			}
 			
 			function init() {
