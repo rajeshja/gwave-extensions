@@ -72,7 +72,7 @@
 				}
 				ratingcell.innerHTML = (ratingvalue);
 				
-				saveRating(bookname, rating);
+				saveRating(bookname, ratingvalue);
 			}
 			
 			function saveRating(name, rating) {
