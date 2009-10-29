@@ -102,7 +102,7 @@
 				newtr.setAttribute("id", "book"+newcount);
 				//If rating is there, set the cell to it.
 				if (rating) {
-					ratingtd = nametd = newtr.getElementsByTagName("TD")[2];
+					ratingtd = newtr.getElementsByTagName("TD")[2];
 					ratingtd.innerHTML = rating;
 				}
 
@@ -194,7 +194,7 @@
 			}
 
 			function log(msg) {
-				//message(msg)
+				message(msg)
 			}
 
 			function message(msg) {
@@ -245,8 +245,10 @@
 						if (books.length > currcount) {
 							for (i=currcount; i<books.length; i++) {
 								if (books[i].rating = 0) {
+									log("Calling to add withOUT rating");
 									addbookrow(books[i].name);
 								} else {
+									log("Calling to add with rating");
 									addbookrow(books[i].name, books[i].rating);
 								}
 							}
