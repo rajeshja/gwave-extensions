@@ -101,8 +101,12 @@
 			}
 			
 			function addbookstate(bookname) {
-				state = wave.getState()
+				state = wave.getState();
+				wave.log("Original books element = " + state.get('books'));
 				books = eval(state.get('books'));
+				wave.log("Books after eval = " + books);
+				wave.log("book 0 = " + books[0]);
+
 				if (!books) {
 					books = new Array();
 					books[0] = {"name":bookname, "rating":0};
