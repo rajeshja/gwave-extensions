@@ -7,12 +7,12 @@
 	<Content type="html">
     <![CDATA[ 
 		<link type="text/css" 
-					href="http://github.com/rajeshja/gwave-extensions/blob/master/gadgets/reco.css" 
+					href="http://github.com/rajeshja/gwave-extensions/raw/master/gadgets/reco.css" 
 					rel="stylesheet" />
 		<script type="text/javascript" 
-						src="http://github.com/rajeshja/gwave-extensions/blob/master/gadgets/json2min.js"></script>
+						src="http://github.com/rajeshja/gwave-extensions/raw/master/gadgets/json2min.js"></script>
 		<script type="text/javascript" 
-						src="http://github.com/rajeshja/gwave-extensions/blob/master/gadgets/reco.js"></script>
+						src="http://github.com/rajeshja/gwave-extensions/raw/master/gadgets/reco.js"></script>
 		<div id="reco-gadget">
 			<table class="recos">
 				<thead>
