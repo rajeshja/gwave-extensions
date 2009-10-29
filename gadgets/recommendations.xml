@@ -107,6 +107,9 @@
 				log("Books after eval = " + books);
 				if (books) {
 					log("book 0 = " + books[0]);
+					if (books[0]) {
+						log("book 0 is " + books[0].name + ":" + books[0].rating);
+					}
 				}
 
 				if (!books) {
