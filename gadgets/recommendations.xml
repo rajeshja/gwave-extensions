@@ -124,35 +124,40 @@
 						}
 					}
 					if (exists) {
-						log("Duplicate addition!");
+						message("Duplicate addition!");
+						return false;
 					} else {
 						books[books.length] = {"name":bookname, "rating":0};
+						booksstring = JSON.stringify(books);
+						state.submitDelta({'books': booksstring});
+						count = parseInt(state.get('count'));
+						if (!count) {
+							count = 0;
+						}
+						state.submitDelta({'count': count+1});
+						return true;
 					}
 				}
 				
-				booksstring = JSON.stringify(books);
-				state.submitDelta({'books': booksstring});
-				count = parseInt(state.get('count'));
-				if (!count) {
-					count = 0;
-				}
-				state.submitDelta({'count': count+1});
 			}
 
 			function addnewbook() {
 				
 				newbookrow = document.getElementById("newbookentry");
 				newbookname = newbookrow.getElementsByTagName("FORM")[0].newbook.value;
-				addbookrow(newbookname);
-				log("Added Row");
-				addbookstate(newbookname);
-				log("Added State");
+				if (addbookstate(newbookname)) {
+					addbookrow(newbookname);
+				}
 
 				return false;
 			}
 
 			function log(msg) {
-				//document.getElementById("messages").innerHTML += msg + "<br/>"; 
+				message(msg)
+			}
+
+			function message(msg) {
+				document.getElementById("messages").innerHTML += msg + "<br/>"; 
 			}
 
 			function disableEnterKey(e)
