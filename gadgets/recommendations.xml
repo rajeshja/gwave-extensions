@@ -194,7 +194,7 @@
 			}
 
 			function log(msg) {
-				message(msg)
+				appendMessage("LOG:" +msg)
 			}
 
 			function message(msg) {
