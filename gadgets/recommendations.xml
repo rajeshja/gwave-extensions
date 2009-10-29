@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?> 
 <Module>
-	<ModulePrefs title="Recommendations Gadget" height="250">
+	<ModulePrefs title="Recommendations Gadget" height="280">
 		<Require feature="wave" /> 
 		<Require feature="dynamic-height" />
 	</ModulePrefs>
@@ -11,8 +11,8 @@
 			#reco-gadget {
 				font-family: Verdana, Bitstream Vera Sans, sans-serif;
 				font-size: 0.9em;
-				max-height: 250px;
-				overflow: scroll;
+				max-height: 280px;
+				overflow: auto;
 			}
 
 			table.recos {
@@ -96,7 +96,7 @@
 
 				newbookrow.parentNode.insertBefore(newtr, newbookrow);
 
-				gadgets.window.adjustHeight(((150 + (newcount*28))> 250) ? 250 : (130 + (newcount*28)));
+				gadgets.window.adjustHeight(280);
 
 			}
 			
