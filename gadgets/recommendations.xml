@@ -182,6 +182,7 @@
 				if (parseInt(wave.getState().get('newBookAdded')) == 1) {
 					log("A new book was added?");
 				} else {
+					log("State changed");
 					showBookList();
 				}
 			}
