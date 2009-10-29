@@ -191,7 +191,7 @@
 				} else if (!state.get('books')) {
 					log("No books available.");
 				} else if (state.get('books').length && state.get('books').length > 0) {
-					books = state.get('books');
+					books = eval(state.get('books'));
 					for (i=0; i<books.length; i++) {
 						if (books[i].rating = 0) {
 							addbookrow(books[i].name);
