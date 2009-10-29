@@ -193,7 +193,7 @@
 						newbookrow = document.getElementById("newbookentry");
 						currcount=(newbookrow.parentNode.getElementsByTagName("TR").length - 2);
 						if (books.length > currcount) {
-							for (i=currcount+1; i<books.length; i++) {
+							for (i=currcount; i<books.length; i++) {
 								if (books[i].rating = 0) {
 									addbookrow(books[i].name);
 								} else {
