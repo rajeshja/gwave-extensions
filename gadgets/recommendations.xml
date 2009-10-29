@@ -76,6 +76,7 @@
 			}
 			
 			function saveRating(name, rating) {
+				log("Saving rating " + rating + " to " + name);
 				books = getSavedBooks();
 				index = findBookIndex(name);
 				if (index != -1) {
@@ -83,6 +84,7 @@
 				}
 				booksstring = JSON.stringify(books);
 				wave.getState().submitDelta({'books': booksstring});
+				log("And books is now saved as " + wave.getState().get('books');
 			}
 
 			function addbookrow(bookname, rating) {
