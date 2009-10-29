@@ -101,6 +101,7 @@
 				//Set the tr identifier
 				newtr.setAttribute("id", "book"+newcount);
 				//If rating is there, set the cell to it.
+				log("The rating is " + rating);
 				if (rating) {
 					ratingtd = newtr.getElementsByTagName("TD")[2];
 					ratingtd.innerHTML = rating;
@@ -248,7 +249,7 @@
 									log("Calling to add withOUT rating");
 									addbookrow(books[i].name);
 								} else {
-									log("Calling to add with rating");
+									log("Calling to add with rating " + books[i].rating);
 									addbookrow(books[i].name, books[i].rating);
 								}
 							}
