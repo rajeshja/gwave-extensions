@@ -71,6 +71,7 @@
 					}
 				}
 				ratingcell.innerHTML = (ratingvalue);
+				
 			}
 			
 			function addbookrow(bookname, rating) {
@@ -151,9 +152,13 @@
 
 				return false;
 			}
+			
+			function getSavedBooks() {
+				return eval(wave.getState().get('books'));
+			}
 
 			function log(msg) {
-				message(msg)
+				//message(msg)
 			}
 
 			function message(msg) {
