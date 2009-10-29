@@ -102,10 +102,10 @@
 			
 			function addbookstate(bookname) {
 				state = wave.getState();
-				wave.log("Original books element = " + state.get('books'));
+				log("Original books element = " + state.get('books'));
 				books = eval(state.get('books'));
-				wave.log("Books after eval = " + books);
-				wave.log("book 0 = " + books[0]);
+				log("Books after eval = " + books);
+				log("book 0 = " + books[0]);
 
 				if (!books) {
 					books = new Array();
@@ -119,7 +119,7 @@
 						}
 					}
 					if (exists) {
-						document.getElementById("messages").innerHTML = "Duplicate addition!";
+						log("Duplicate addition!");
 					} else {
 						books[books.length] = {"name":bookname, "rating":0};
 					}
@@ -142,6 +142,10 @@
 				addbookstate(newbookname);
 				wave.getState().submitDelta('newBookAdded', 1);
 				return false;
+			}
+
+			function log(msg) {
+				document.getElementById("messages").innerHTML += msg + "<br/>"; 
 			}
 
 			function disableEnterKey(e)
@@ -167,7 +171,7 @@
 			
 			function stateUpdated() {
 				if (parseInt(wave.getState().get('newBookAdded')) == 1) {
-					document.getElementById("messages").innerHTML += "A new book was added?";
+					log("A new book was added?");
 				} else {
 					showBookList();
 				}
@@ -176,9 +180,9 @@
 			function showBookList() {
 				state = wave.getState();
 				if (!state) {
-					document.getElementById("messages").innerHTML += "No state available.";
+					log("No state available.");
 				} else if (!state.get('books')) {
-					document.getElementById("messages").innerHTML += "No books available.";
+					log("No books available.");
 				} else if (state.get('books').length && state.get('books').length > 0) {
 					books = state.get('books');
 					for (i=0; i<books.length; i++) {
@@ -189,7 +193,7 @@
 						}
 					}
 				}
-				document.getElementById("messages").innerHTML += "<br>Count is " + state.get('count');
+				log("Count is " + state.get('count'));
 			}
 			
 			gadgets.util.registerOnLoadHandler(init);
