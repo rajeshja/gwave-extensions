@@ -1,0 +1,43 @@
+#reco-gadget {
+	font-family: Verdana, Bitstream Vera Sans, sans-serif;
+	font-size: 0.9em;
+	max-height: 280px;
+	overflow: auto;
+}
+
+table.recos {
+	margin: 0;
+	padding: 0;
+	border-collapse: collapse;
+	font-family: Verdana, Bitstream Vera Sans, sans-serif;
+	font-size: 0.9em;
+}
+
+.recos td, .recos th {
+	border: solid black 1px;
+	margin: 0;
+	padding: 0;
+}
+
+.recos form {
+	margin: 0;
+	padding: 0;
+}
+
+.recos fieldset {
+	border: 0;
+	padding: 1px;
+	margin: 0;
+	font-size: 0.9em;
+}
+
+.recos fieldset input[type="radio"] {
+	margin: 0;
+	padding-left: 0px;
+	height: 9px;
+	width: 9px;
+}
+
+.recos fieldset input {
+	font-size: 0.9em;
+}
