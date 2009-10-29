@@ -147,14 +147,12 @@
 				log("Added Row");
 				addbookstate(newbookname);
 				log("Added State");
-				wave.getState().submitDelta({'newBookAdded': 1});
-				log("Logged addition of State");
 
 				return false;
 			}
 
 			function log(msg) {
-				document.getElementById("messages").innerHTML += msg + "<br/>"; 
+				//document.getElementById("messages").innerHTML += msg + "<br/>"; 
 			}
 
 			function disableEnterKey(e)
@@ -179,13 +177,8 @@
 			}
 			
 			function stateUpdated() {
-				log("Value of newBookAdded is " + wave.getState().get('newBookAdded'));
-				if (parseInt(wave.getState().get('newBookAdded')) == 1) {
-					log("A new book was added?");
-				} else {
-					log("State changed");
-					showBookList();
-				}
+				log("State changed");
+				showBookList();
 			}
 			
 			function showBookList() {
@@ -194,13 +187,19 @@
 					log("No state available.");
 				} else if (!state.get('books')) {
 					log("No books available.");
-				} else if (state.get('books').length && state.get('books').length > 0) {
+				} else {
 					books = eval(state.get('books'));
-					for (i=0; i<books.length; i++) {
-						if (books[i].rating = 0) {
-							addbookrow(books[i].name);
-						} else {
-							addbookrow(books[i].name, books[i].rating);
+					if (books.length && books.length > 0) {
+						newbookrow = document.getElementById("newbookentry");
+						currcount=(newbookrow.parentNode.getElementsByTagName("TR").length - 2);
+						if (books.length > currcount) {
+							for (i=currcount+1; i<books.length; i++) {
+								if (books[i].rating = 0) {
+									addbookrow(books[i].name);
+								} else {
+									addbookrow(books[i].name, books[i].rating);
+								}
+							}
 						}
 					}
 				}
