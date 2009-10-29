@@ -72,6 +72,9 @@
 				}
 				ratingcell.innerHTML = (ratingvalue);
 				
+				books = getSavedBooks();
+				
+				
 			}
 			
 			function addbookrow(bookname, rating) {
@@ -104,7 +107,7 @@
 			function addbookstate(bookname) {
 				state = wave.getState();
 				log("Original books element = " + state.get('books'));
-				books = eval(state.get('books'));
+				books = getSavedBooks();
 				log("Books after eval = " + books);
 				if (books) {
 					log("book 0 = " + books[0]);
@@ -119,11 +122,10 @@
 				} else {
 					//Should first check if the book already exists.
 					var exists=false;
-					for (i=0; i<books.length; i++) {
-						if (books[i].name.toLowerCase() == bookname.toLowerCase()) {
-							exists=true;
-						}
-					}
+					
+					if (findBook(bookname))
+						exists=true;
+						
 					if (exists) {
 						message("Duplicate addition!");
 						return false;
@@ -151,6 +153,17 @@
 				}
 
 				return false;
+			}
+			
+			function findBook(name) {
+				var book;
+				books = getSavedBooks();
+				for (i=0; i<books.length; i++) {
+					if (books[i].name.toLowerCase() == name.toLowerCase()) {
+						book=books[i];
+					}
+				}
+				return book;
 			}
 			
 			function getSavedBooks() {
@@ -198,7 +211,7 @@
 				} else if (!state.get('books')) {
 					log("No books available.");
 				} else {
-					books = eval(state.get('books'));
+					books = getSavedBooks();
 					if (books.length && books.length > 0) {
 						newbookrow = document.getElementById("newbookentry");
 						currcount=(newbookrow.parentNode.getElementsByTagName("TR").length - 2);
