@@ -60,7 +60,8 @@
 				row = radiobutton.parentNode.parentNode.parentNode.parentNode;
 				//row = document.getElementById("book" + rownum);
 				bookcell = row.getElementsByTagName("TD")[1];
-				ratingcell = row.getElementsByTagName("TD")[2];
+				scorecell = row.getElementsByTagName("TD")[2];
+				ratingcell = row.getElementsByTagName("TD")[3];
 				bookname = bookcell.textContent;
 				ratingchoices = ratingcell.getElementsByTagName("FORM")[0].rating;
 				ratingvalue = 0;
@@ -70,7 +71,7 @@
 						ratingvalue = ratingchoices[i].value;
 					}
 				}
-				ratingcell.innerHTML = (ratingvalue);
+				scorecell.innerHTML = (ratingvalue);
 				
 				saveRating(bookname, ratingvalue);
 			}
@@ -105,8 +106,10 @@
 				//If rating is there, set the cell to it.
 				log("The rating is " + rating);
 				if (rating) {
-					ratingtd = newtr.getElementsByTagName("TD")[2];
-					ratingtd.innerHTML = rating;
+					scroretd = newtr.getElementsByTagName("TD")[2];
+					scroretd.innerHTML = rating;
+					//ratingtd = newtr.getElementsByTagName("TD")[3];
+					//ratingtd.innerHTML = rating;
 				}
 
 				newbookrow.parentNode.insertBefore(newtr, newbookrow);
@@ -271,8 +274,9 @@
 				<thead>
 					<tr>
 						<th>Rank</th>
-						<th>Book Name</th>
-						<th>Rating (5=Love it, 1=Trash)</th>
+						<th>Book</th>
+						<th>Score</th>
+						<th>Your Rating (5=Love it, 1=Trash)</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -287,12 +291,13 @@
 							</fieldset>
 						</form>
 						</td>
-						<td>
-						</td>
+						<td></td>
+						<td></td>
 					</tr>
 					<tr id="row-template" style="display: none;">
 						<td>0</td>
 						<td>Book 0</td>
+						<td>0</td>
 						<td>
 							<form action="rate.it">
 								<fieldset class="rate-it">
