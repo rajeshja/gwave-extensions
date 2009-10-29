@@ -140,7 +140,7 @@
 				newbookname = newbookrow.getElementsByTagName("FORM")[0].newbook.value;
 				addbookrow(newbookname);
 				addbookstate(newbookname);
-
+				wave.getState().submitDelta('newBookAdded', 1);
 				return false;
 			}
 
@@ -166,7 +166,7 @@
 			}
 			
 			function stateUpdated() {
-				if (wave.getState().get('newBookAdded') == 1) {
+				if (parseInt(wave.getState().get('newBookAdded')) == 1) {
 					document.getElementById("messages").innerHTML += "A new book was added?";
 				} else {
 					showBookList();
