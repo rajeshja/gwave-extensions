@@ -105,7 +105,9 @@
 				log("Original books element = " + state.get('books'));
 				books = eval(state.get('books'));
 				log("Books after eval = " + books);
-				log("book 0 = " + books[0]);
+				if (books) {
+					log("book 0 = " + books[0]);
+				}
 
 				if (!books) {
 					books = new Array();
