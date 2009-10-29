@@ -96,7 +96,7 @@
 
 				newbookrow.parentNode.insertBefore(newtr, newbookrow);
 
-				gadgets.window.adjustHeight(((130 + (newcount*28))> 250) ? 250 : (130 + (newcount*28)));
+				gadgets.window.adjustHeight(((150 + (newcount*28))> 250) ? 250 : (130 + (newcount*28)));
 
 			}
 			
@@ -139,7 +139,9 @@
 				newbookrow = document.getElementById("newbookentry");
 				newbookname = newbookrow.getElementsByTagName("FORM")[0].newbook.value;
 				addbookrow(newbookname);
+				log("Added Row");
 				addbookstate(newbookname);
+				log("Added State");
 				wave.getState().submitDelta('newBookAdded', 1);
 				return false;
 			}
