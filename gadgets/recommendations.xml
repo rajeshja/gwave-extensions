@@ -148,6 +148,8 @@
 				addbookstate(newbookname);
 				log("Added State");
 				wave.getState().submitDelta('newBookAdded', 1);
+				log("Logged addition of State");
+
 				return false;
 			}
 
