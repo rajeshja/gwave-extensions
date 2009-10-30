@@ -52,6 +52,7 @@
 									<input type="radio" name="rating" value="1" onchange="rate(this)" /> 1 
 								</fieldset>
 							</form>
+							<div class="user-selection"></div>
 						</td>
 					</tr>
 				</tbody>

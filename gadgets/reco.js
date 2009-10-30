@@ -5,7 +5,8 @@ function rate(radiobutton) {
 	scorecell = row.getElementsByTagName("TD")[2];
 	ratingcell = row.getElementsByTagName("TD")[3];
 	bookname = bookcell.textContent;
-	ratingchoices = ratingcell.getElementsByTagName("FORM")[0].rating;
+	ratingform = ratingcell.getElementsByTagName("FORM")[0];
+	ratingchoices = ratingform.rating;
 	ratingvalue = 0;
 	if (ratingchoices.length < 1) return;
 	for (i=0; i < ratingchoices.length; i++) {
@@ -15,6 +16,12 @@ function rate(radiobutton) {
 	}
 	scorecell.innerHTML = (ratingvalue);
 	
+	ratingform.setAttribute("style", "display:none");
+
+	ratingdiv = ratingcell.getElementsByTagName("DIV")[0]
+	ratingdiv.innerHTML += "You chose " + ratingvalue + " <a href='javascript:rateAgain(this)'>Change</a>";
+	ratingdiv.setAttribute("style", "");
+
 	saveRating(bookname, ratingvalue);
 }
 
@@ -28,6 +35,14 @@ function saveRating(name, rating) {
 	booksstring = JSON.stringify(books);
 	wave.getState().submitDelta({'books': booksstring});
 	log("And books is now saved as " + wave.getState().get('books'));
+}
+
+function rateAgain(element) {
+	ratingcell = element.parentNode.parentNode;
+	ratingform = ratingcell.getElementsByTagName("FORM")[0];
+	ratingform.setAttribute("style", "");
+	ratingdiv = element.parentNode;
+	ratingdiv.setAttribute("style", "display:none");
 }
 
 function addbookrow(bookname, rating) {
