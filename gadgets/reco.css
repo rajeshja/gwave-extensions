@@ -24,6 +24,10 @@ table.recos {
 	padding: 0;
 }
 
+.recos .rateagain {
+	text-decoration: underline;
+}
+
 .recos fieldset {
 	border: 0;
 	padding: 1px;
