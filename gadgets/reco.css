@@ -33,14 +33,14 @@ table.recos {
 	border: 0;
 	padding: 1px;
 	margin: 0;
-	font-size: 0.9em;
+	font-size: 0.8em;
 }
 
 .recos fieldset input[type="radio"] {
 	margin: 0;
 	padding-left: 0px;
-	height: 9px;
-	width: 9px;
+	height: 7px;
+	width: 7px;
 }
 
 .recos fieldset input {
