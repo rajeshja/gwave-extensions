@@ -19,7 +19,7 @@ function rate(radiobutton) {
 	ratingform.setAttribute("style", "display:none");
 
 	ratingdiv = ratingcell.getElementsByTagName("DIV")[0]
-	ratingdiv.innerHTML += "You chose " + ratingvalue + " <span class='rateagain' onclick='rateAgain(this)'>Change</span>";
+	ratingdiv.innerHTML = "You chose " + ratingvalue + " <span class='rateagain' onclick='rateAgain(this)'>Change</span>";
 	ratingdiv.setAttribute("style", "");
 
 	saveRating(bookname, ratingvalue);

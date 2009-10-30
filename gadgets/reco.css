@@ -26,6 +26,7 @@ table.recos {
 
 .recos .rateagain {
 	text-decoration: underline;
+	cursor: hand;
 }
 
 .recos fieldset {
