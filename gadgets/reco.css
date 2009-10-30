@@ -25,7 +25,8 @@ table.recos {
 }
 
 .recos .rateagain {
-	text-decoration: underline;
+	color: #a0a0a0;
+	font-size: 0.8em;
 	cursor: pointer;
 }
 
