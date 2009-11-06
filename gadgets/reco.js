@@ -1,3 +1,37 @@
+var BookRecord = function(name, rating) {
+	this.type = "record";
+	this.name = name;
+	if (rating) {
+		this.rating = rating;
+	}
+}
+
+var BooksType = function() {
+	this.count = 0;
+	this.add = function(name, rating) {
+		if (!this.get(name)) {
+			//Add it
+			this[name.toLowerCase()] = new BookRecord(name, rating);
+			this.count += 1;
+		} else {
+			//Already exists
+			throw "Book already exists";
+		}
+	};
+
+	this.get = function(name) {
+		return this[name.toLowerCase()];
+	}
+
+	this.save = function(name, rating) {
+		if (!this.get(name)) {
+			this.add(name, rating);
+		} else {
+			this.get(name).rating = rating;
+		}
+	}
+}
+
 function rate(radiobutton) {
 	row = radiobutton.parentNode.parentNode.parentNode.parentNode;
 	//row = document.getElementById("book" + rownum);
@@ -22,17 +56,17 @@ function rate(radiobutton) {
 	ratingdiv.innerHTML = "You chose " + ratingvalue + " <span class='rateagain' onclick='rateAgain(this)'>Change</span>";
 	ratingdiv.setAttribute("style", "");
 
+	//TODO
 	saveRating(bookname, ratingvalue);
 }
 
 function saveRating(name, rating) {
 	log("Saving rating " + rating + " to " + name);
 	books = getSavedBooks();
-	index = findBookIndex(name);
-	if (index != -1) {
-		books[index].rating = rating;
-	}
+	books.save(name, rating);
+
 	booksstring = JSON.stringify(books);
+
 	wave.getState().submitDelta({'books': booksstring});
 	log("And books is now saved as " + wave.getState().get('books'));
 }
@@ -88,38 +122,27 @@ function addbookstate(bookname, rating) {
 	}
 
 	if (!books) {
-		books = new Array();
-		if (rating) {
-			books[0] = {"name":bookname, "rating": rating};
-		} else {
-			books[0] = {"name":bookname, "rating": 0};
-		}
-	} else {
-		//Should first check if the book already exists.
-		var exists=false;
-		
-		if (findBook(bookname))
-			exists=true;
-			
-		if (exists) {
-			message("Duplicate addition!");
-			return false;
-		} else {
-			if (rating) {
-				books[books.length] = {"name":bookname, "rating": rating};
-			} else {
-				books[books.length] = {"name":bookname, "rating": 0};
-			}
-			booksstring = JSON.stringify(books);
-			state.submitDelta({'books': booksstring});
-			count = parseInt(state.get('count'));
-			if (!count) {
-				count = 0;
-			}
-			state.submitDelta({'count': count+1});
-			return true;
-		}
+		books = new BooksType();
 	}
+	try {
+		books.add(bookname, rating);
+	} catch (e){
+		message(e);
+		return false;
+	}
+
+	booksstring = JSON.stringify(books);
+	state.submitDelta({'books': booksstring});
+
+	//Count is not required
+	count = parseInt(state.get('count'));
+	if (!count) {
+		count = 0;
+	}
+	state.submitDelta({'count': count+1});
+	//Count is not required
+
+	return true;
 	
 }
 
@@ -132,24 +155,6 @@ function addnewbook() {
 	}
 
 	return false;
-}
-
-function findBook(name) {
-	var book;
-	books = getSavedBooks();
-	
-	return books[findBookIndex(name)];
-}
-
-function findBookIndex(name) {
-	var book;
-	books = getSavedBooks();
-	for (i=0; i<books.length; i++) {
-		if (books[i].name.toLowerCase() == name.toLowerCase()) {
-			return i;
-		}
-	}
-	return -1;
 }
 
 function getSavedBooks() {
@@ -180,7 +185,8 @@ function disableEnterKey(e)
 }
 
 function tempClear() {
-	wave.getState().submitDelta({'books': '[]' });
+	books = new BooksType();
+	wave.getState().submitDelta({'books': JSON.stringify(books) });
 }
 
 function init() {
@@ -202,21 +208,38 @@ function showBookList() {
 		log("No books available.");
 	} else {
 		books = getSavedBooks();
-		if (books.length && books.length > 0) {
+		if (books) {
 			newbookrow = document.getElementById("newbookentry");
-			currcount=(newbookrow.parentNode.getElementsByTagName("TR").length - 2);
-			if (books.length > currcount) {
-				for (i=currcount; i<books.length; i++) {
-					currrating = books[i].rating;
-					if ( currrating == 0) {
-						log("Calling to add withOUT rating");
-						addbookrow(books[i].name);
-					} else {
-						log("Calling to add with rating " + currrating);
-						addbookrow(books[i].name, currrating);
-					}
+			
+			bookrows = newbookrow.parentNode.getElementsByTagName("TR");
+			for (i=0; i<bookrows.length; i++) {
+				newbookrow.parentNode.removeChild(bookrows[i]);
+			}
+			
+
+			for (record in books) {
+				if (books[record].type == "record") {
+					book = books[record];
+					addbookrow(book.name, book.rating);
 				}
 			}
+
+
+//			currcount=(newbookrow.parentNode.getElementsByTagName("TR").length - 2);
+//			if (books.count > currcount) {
+//
+//				// Need to loop through
+//				for (i=currcount; i<books.length; i++) {
+//					currrating = books[i].rating;
+//					if ( currrating == 0) {
+//						log("Calling to add withOUT rating");
+//						addbookrow(books[i].name);
+//					} else {
+//						log("Calling to add with rating " + currrating);
+//						addbookrow(books[i].name, currrating);
+//					}
+//				}
+//			}
 		}
 	}
 	log("Count is " + state.get('count'));
