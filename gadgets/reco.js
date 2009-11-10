@@ -124,9 +124,6 @@ function addbookstate(bookname, rating) {
 	if (!books) {
 		books = new BooksType();
 	}
-	if (!(books.add)) {
-		books = new BooksType();
-	}
 	try {
 		books.add(bookname, rating);
 	} catch (e){
@@ -161,7 +158,9 @@ function addnewbook() {
 }
 
 function getSavedBooks() {
-	return JSON.parse(wave.getState().get('books'));
+	books = JSON.parse(wave.getState().get('books'));
+	books.prototype = new BooksType();
+	return books;
 }
 
 function log(msg) {
