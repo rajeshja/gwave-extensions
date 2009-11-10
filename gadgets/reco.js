@@ -162,7 +162,7 @@ function getSavedBooks() {
 }
 
 function log(msg) {
-	//appendMessage("LOG:" +msg)
+	appendMessage("LOG:" +msg)
 }
 
 function message(msg) {
