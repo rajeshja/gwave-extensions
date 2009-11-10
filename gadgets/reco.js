@@ -6,13 +6,20 @@ var BookRecord = function(name, rating) {
 	}
 }
 
-var BooksType = function() {
-	this.count = 0;
+var BooksType = function(data) {
+
+	if (data) {
+		this.data = data;
+	} else {
+		this.data = new Object();
+		this.data.count = 0;
+	}
+
 	this.add = function(name, rating) {
 		if (!this.get(name)) {
 			//Add it
-			this[name.toLowerCase()] = new BookRecord(name, rating);
-			this.count += 1;
+			this.data[name.toLowerCase()] = new BookRecord(name, rating);
+			this.data.count += 1;
 		} else {
 			//Already exists
 			throw "Book already exists";
@@ -20,7 +27,7 @@ var BooksType = function() {
 	};
 
 	this.get = function(name) {
-		return this[name.toLowerCase()];
+		return this.data[name.toLowerCase()];
 	}
 
 	this.save = function(name, rating) {
@@ -30,6 +37,7 @@ var BooksType = function() {
 			this.get(name).rating = rating;
 		}
 	}
+	
 }
 
 function rate(radiobutton) {
@@ -131,7 +139,7 @@ function addbookstate(bookname, rating) {
 		return false;
 	}
 
-	booksstring = JSON.stringify(books);
+	booksstring = JSON.stringify(books.data);
 	state.submitDelta({'books': booksstring});
 
 	//Count is not required
@@ -158,8 +166,8 @@ function addnewbook() {
 }
 
 function getSavedBooks() {
-	books = JSON.parse(wave.getState().get('books'));
-	books.prototype = new BooksType();
+	savedData = JSON.parse(wave.getState().get('books'));
+	books = new BooksType(savedData);
 	return books;
 }
 
@@ -188,7 +196,7 @@ function disableEnterKey(e)
 
 function tempClear() {
 	books = new BooksType();
-	wave.getState().submitDelta({'books': JSON.stringify(books) });
+	wave.getState().submitDelta({'books': JSON.stringify(books.data) });
 }
 
 function init() {
@@ -218,9 +226,9 @@ function showBookList() {
 				newbookrow.parentNode.removeChild(bookrows[i]);
 			}
 			
-			for (record in books) {
-				if (books[record].type == "record") {
-					book = books[record];
+			for (record in books.data) {
+				if (books.data[record].type == "record") {
+					book = books.data[record];
 					addbookrow(book.name, book.rating);
 				}
 			}
