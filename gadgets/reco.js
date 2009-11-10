@@ -212,11 +212,10 @@ function showBookList() {
 			newbookrow = document.getElementById("newbookentry");
 			
 			bookrows = newbookrow.parentNode.getElementsByTagName("TR");
-			for (i=0; i<bookrows.length; i++) {
+			for (i=0; i<bookrows.length - 2; i++) {
 				newbookrow.parentNode.removeChild(bookrows[i]);
 			}
 			
-
 			for (record in books) {
 				if (books[record].type == "record") {
 					book = books[record];
