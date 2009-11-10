@@ -124,6 +124,9 @@ function addbookstate(bookname, rating) {
 	if (!books) {
 		books = new BooksType();
 	}
+	if (!(books.add)) {
+		books = new BooksType();
+	}
 	try {
 		books.add(bookname, rating);
 	} catch (e){
