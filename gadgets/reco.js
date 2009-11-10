@@ -158,7 +158,7 @@ function addnewbook() {
 }
 
 function getSavedBooks() {
-	return eval(wave.getState().get('books'));
+	return JSON.parse(wave.getState().get('books'));
 }
 
 function log(msg) {
