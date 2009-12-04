@@ -254,4 +254,4 @@ function setup() {
 
 }
 
-$(document).ready(setup);
+gadgets.util.registerOnLoadHandler(setup);
