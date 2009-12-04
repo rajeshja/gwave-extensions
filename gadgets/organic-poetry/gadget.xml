@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<Module>
+	<ModulePrefs title="Recommendations Gadget" height="280">
+		<Require feature="wave" /> 
+		<Require feature="dynamic-height" />
+	</ModulePrefs>
+	<Content type="html">
+		<![CDATA[
+		<link type="text/css" rel="stylesheet"
+					href="http://github.com/rajeshja/gwave-extensions/raw/master/gadgets/organic-poetry/poetry.css"
+					/>
+		<link type="text/css" rel="stylesheet"
+					href="http://github.com/rajeshja/gwave-extensions/raw/master/gadgets/organic-poetry/jquery-ui-1.7.2.custom.css"
+					/>
+		<script type="text/javascript"
+						src="http://github.com/rajeshja/gwave-extensions/raw/master/gadgets/json2min.js"></script>
+		<script type="text/javascript"
+						src="http://github.com/rajeshja/gwave-extensions/raw/master/gadgets/organic-poetry/organic.js"></script>
+		<div id="op-container">
+			<div id="stop">Waiting for dragging the image get started...</div>
+			<div id="controls">
+				<input id="newWord" type="text" value=""/>
+				<input id="add" type="button" value="Add"/>
+				Or
+				<input id="delete" type="button" value="Delete Subtree"/>
+			</div>
+			<div id="organic-poetry">
+				<canvas id="op-back" width="295px" height="295px"></canvas>
+			</div>
+		</div>
+		]]>
+	</Content>
+</Module>
