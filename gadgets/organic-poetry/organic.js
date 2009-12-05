@@ -176,19 +176,25 @@ function updateCurrent(word) {
 	$("#"+word.id).addClass("selected");
 }
 
-function addWord(e) {
+function addWords(e) {
 	if ((curr.id == "start-node")
 		&& (curr.nextWords.length != 0)) {
 		return;
 	}
 
-	var n = new Word($("#newWord").val(),
-					 new Point(curr.location.x, curr.location.y+20));
-	n.addPrev(curr);
-	curr.addNext(n);
-	drawWord(n);
-	drawLine(curr.location, n.location);
-	updateCurrent(n);
+	var entered = $("#newWord").val().split(" ");
+
+	for(i=0; i<entered.length; i++) {
+		if (entered[i] && (entered[i].length>0)) {
+			var n = new Word(entered[i],
+							 new Point(curr.location.x, curr.location.y+20));
+			n.addPrev(curr);
+			curr.addNext(n);
+			drawWord(n);
+			drawLine(curr.location, n.location);
+			updateCurrent(n);
+		}
+	}
 }
 
 function deleteSelected(e) {
@@ -249,7 +255,7 @@ function setup() {
 	drawWord(w1);
 	drawLine(w.location, w1.location);
 
-	$("#add").click(addWord);
+	$("#add").click(addWords);
 	$("#delete").click(deleteSelected);
 
 }
