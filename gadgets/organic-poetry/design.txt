@@ -5,10 +5,10 @@ Start dragging a word:
 Stop dragging a word:
 	Update word new position
 
-Select a word:
-	Change current state object
+- Select a word:
+	Change 'current' state object
 
-Create new word:
+- Create new word:
 	Add word to state
 
 Delete a word:
