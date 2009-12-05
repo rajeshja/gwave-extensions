@@ -1,4 +1,7 @@
-var lastId = 1;
+var lastId = parseInt(wave.getState().get('lastId'));
+if (!lastId) {
+	lastId = 1;
+}
 
 var curr = undefined;
 
@@ -33,6 +36,7 @@ function Word(text, location, id, type) {
 	} else {
 		this.id = 'w' + lastId;
 		lastId ++;
+		wave.getState().submitDelta({'lastId' : lastId});
 	}
 
 	this.text = text;
@@ -41,6 +45,7 @@ function Word(text, location, id, type) {
 	this.nextWords = [];
 	this.prevWords = [];
 	words[this.id] = this;
+	wave.getState().submitDelta({(this.id) : wave.util.printJson(this)});
 
 	this.addPrev = function(prev) {
 		this.prevWords[this.prevWords.length] = prev;
@@ -165,6 +170,7 @@ function makeCurrent(e) {
 		$("#"+curr.id).removeClass("selected");
 	}
 	curr = words[this.id];
+	wave.getState().submitDelta({'curr' : wave.util.printJson(curr)});
 	$(this).addClass("selected");
 }
 
@@ -173,6 +179,7 @@ function updateCurrent(word) {
 		$("#"+curr.id).removeClass("selected");
 	}
 	curr = word;
+	wave.getState().submitDelta({'curr' : wave.util.printJson(curr)});
 	$("#"+word.id).addClass("selected");
 }
 
@@ -240,4 +247,14 @@ function setup() {
 	updateCurrent(s);
 }
 
-gadgets.util.registerOnLoadHandler(setup);
+function stateUpdated() {
+	
+}
+
+function init() {
+	if (wave && wave.isInWaveContainer()) {
+		wave.setStateCallback(stateUpdated);
+	}
+}
+
+gadgets.util.registerOnLoadHandler(init);
