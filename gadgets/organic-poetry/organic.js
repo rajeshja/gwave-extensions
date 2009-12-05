@@ -231,33 +231,13 @@ function setup() {
 	var canvas = document.getElementById('op-back');
 	canvas.setAttribute("height", root.height()-5);
 	canvas.setAttribute("width", root.width()-5);
-	
-	var s = new Word("Start", new Point(10,10), "start-node", "start");
-	drawWord(s);
-	curr = s;
-	
-	//var startdiv = '<div id="start-node" class="word">Start</div>';
-	//var start = $(startdiv);
-	//start.draggable();
-	//start.css(new Position(10,10));
-	//
-	//$("#organic-poetry").append(start);
-
-	var w = new Word("If", new Point(50,50));
-	s.addNext(w);
-	w.addPrev(s);
-	drawWord(w);
-	drawLine(s.location, w.location);
-
-	var w1 = new Word("you", new Point(100,50));
-	w1.addPrev(w);
-	w.addNext(w1);
-	drawWord(w1);
-	drawLine(w.location, w1.location);
 
 	$("#add").click(addWords);
 	$("#delete").click(deleteSelected);
-
+	
+	var s = new Word("Start", new Point(10,10), "start-node", "start");
+	drawWord(s);
+	updateCurrent(s);
 }
 
 gadgets.util.registerOnLoadHandler(setup);

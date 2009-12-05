@@ -1,0 +1,16 @@
+Events on which state needs to be updated.
+Start dragging a word:
+	Update word old position
+
+Stop dragging a word:
+	Update word new position
+
+Select a word:
+	Change current state object
+
+Create new word:
+	Add word to state
+
+Delete a word:
+	Remove word from state
+
