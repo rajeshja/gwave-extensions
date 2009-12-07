@@ -33,7 +33,7 @@ function Word(text, location, id, type) {
 	} else {
 		this.id = 'w' + lastId;
 		lastId ++;
-		wave.getState().submitDelta({'lastId' : lastId});
+		wave.getState().submitValue('lastId', lastId);
 	}
 
 	this.text = text;
@@ -42,7 +42,7 @@ function Word(text, location, id, type) {
 	this.nextWords = [];
 	this.prevWords = [];
 	words[this.id] = this;
-	wave.getState().submitDelta({this.id : wave.util.printJson(this)});
+	wave.getState().submitValue(this.id, wave.util.printJson(this));
 
 	this.addPrev = addPrev;
 	this.addNext = addNext;
@@ -138,14 +138,15 @@ function recordStartPoint(e, ui) {
 	var w = words[this.id];
 	var pos = $(this).position();
 	w.oldPos = new Point(pos.left, pos.top);
-	wave.getState().submitDelta({w.id : wave.util.printJson(w)});
+
+	wave.getState().submitValue(w.id, wave.util.printJson(w));
 }
 
 function redrawConnectors(e, ui) {
 	var w = words[this.id];
 	var pos = $(this).position();
 	w.location = new Point(pos.left, pos.top);
-	wave.getState().submitDelta({w.id : wave.util.printJson(w)});
+	wave.getState().submitValue(w.id, wave.util.printJson(w));
 	
 	for (var i=0; i<w.prevWords.length; i++) {
 		var prevWord = w.prevWords[i];
@@ -180,7 +181,7 @@ function makeCurrent(e) {
 		$("#"+curr.id).removeClass("selected");
 	}
 	curr = words[this.id];
-	wave.getState().submitDelta({'curr' : wave.util.printJson(curr)});
+	wave.getState().submitValue('curr', wave.util.printJson(curr));
 	$(this).addClass("selected");
 }
 
@@ -192,7 +193,7 @@ function updateCurrent(word) {
 		$("#"+curr.id).removeClass("selected");
 	}
 	curr = word;
-	//wave.getState().submitDelta({'curr' : wave.util.printJson(curr)});
+	//wave.getState().submitValue('curr', wave.util.printJson(curr));
 	$("#"+word.id).addClass("selected");
 }
 
@@ -210,21 +211,23 @@ function addWords(e) {
 							 new Point(curr.location.x, curr.location.y+20));
 			n.addPrev(curr);
 			curr.addNext(n);
-			wave.getState().submitDelta({n.id : wave.util.printJson(n)});
+
+			wave.getState().submitValue(n.id, wave.util.printJson(n));
+
 			drawWord(n);
 			drawLine(curr.location, n.location);
 			updateCurrent(n);
 		}
 	}
 	//Updating curr state only at the end to minimize need to sync.
-	wave.getState().submitDelta({'curr' : wave.util.printJson(curr)});
+	wave.getState().submitValue('curr', wave.util.printJson(curr));
 }
 
 function deleteSelected(e) {
 	if (curr && (curr.id != "start-node")) {
 		deleteSubTree(curr);
 		curr = undefined;
-		wave.getState().submitDelta({'curr' : undefined});
+		wave.getState().submitValue('curr', undefined);
 	}
 	var canvas = document.getElementById('op-back');
 	canvas.setAttribute("width", canvaswidth);
@@ -247,7 +250,7 @@ function deleteSubTree(word) {
 	}
 	
 	words[word.id] = undefined;
-	wave.getState().submitDelta({word.id : undefined});
+	wave.getState().submitValue(word.id, undefined);
 }
 
 /*
@@ -264,7 +267,7 @@ function stateUpdated() {
 		lastId = parseInt(lastStored);
 	} else {
 		lastId = 1;
-		wave.getState().submitDelta({'lastId' : 1});
+		wave.getState().submitValue('lastId', 1);
 	}
 
 	//Update word list.
@@ -309,7 +312,7 @@ function stateUpdated() {
 		var s = new Word("Start", new Point(10,10), "start-node", "start");
 		drawWord(s);
 		updateCurrent(s);
-		wave.getState().submitDelta({'curr' : wave.util.printJson(curr)});
+		wave.getState().submitValue('curr', wave.util.printJson(curr));
 	}
 }
 
