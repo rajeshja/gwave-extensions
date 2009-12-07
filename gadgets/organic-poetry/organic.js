@@ -302,6 +302,8 @@ function stateUpdated() {
 		$("#clear").click(clearState);
 		$("#add").click(addWords);
 		$("#delete").click(deleteSelected);
+	} else {
+		log("<br/>But curr was not null");
 	}
 
 	//Restore curr from state.
