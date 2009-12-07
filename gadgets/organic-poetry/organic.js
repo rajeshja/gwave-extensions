@@ -2,7 +2,7 @@ var lastId = undefined;
 
 var curr = undefined;
 
-var words = {};
+var words = undefined;
 
 var canvasheight = 290;
 var canvaswidth = 290;
@@ -76,6 +76,15 @@ function removeNext(word) {
 	}
 }
 
+function toWord(word) {
+	word.addPrev = addPrev;
+	word.addNext = addNext;
+	word.removePrev = removePrev;
+	word.removeNext = removeNext;
+
+	return word;
+}
+
 function drawLine(frompos, topos) {
 	var ctx = getCanvasCtx();
 	ctx.strokeStyle = "black";
@@ -129,12 +138,14 @@ function recordStartPoint(e, ui) {
 	var w = words[this.id];
 	var pos = $(this).position();
 	w.oldPos = new Point(pos.left, pos.top);
+	wave.getState().submitDelta({(w.id) : wave.util.printJson(w)});
 }
 
 function redrawConnectors(e, ui) {
 	var w = words[this.id];
 	var pos = $(this).position();
 	w.location = new Point(pos.left, pos.top);
+	wave.getState().submitDelta({(w.id) : wave.util.printJson(w)});
 	
 	for (var i=0; i<w.prevWords.length; i++) {
 		var prevWord = w.prevWords[i];
@@ -173,12 +184,15 @@ function makeCurrent(e) {
 	$(this).addClass("selected");
 }
 
+/* This function does not update state, for optimization purposes. Callers
+ * should ensure state is updated at the right time. 
+ */
 function updateCurrent(word) {
 	if (curr) {
 		$("#"+curr.id).removeClass("selected");
 	}
 	curr = word;
-	wave.getState().submitDelta({'curr' : wave.util.printJson(curr)});
+	//wave.getState().submitDelta({'curr' : wave.util.printJson(curr)});
 	$("#"+word.id).addClass("selected");
 }
 
@@ -196,17 +210,21 @@ function addWords(e) {
 							 new Point(curr.location.x, curr.location.y+20));
 			n.addPrev(curr);
 			curr.addNext(n);
+			wave.getState().submitDelta({(n.id) : wave.util.printJson(n)});
 			drawWord(n);
 			drawLine(curr.location, n.location);
 			updateCurrent(n);
 		}
 	}
+	//Updating curr state only at the end to minimize need to sync.
+	wave.getState().submitDelta({'curr' : wave.util.printJson(curr)});
 }
 
 function deleteSelected(e) {
 	if (curr && (curr.id != "start-node")) {
 		deleteSubTree(curr);
 		curr = undefined;
+		wave.getState().submitDelta({'curr' : undefined});
 	}
 	var canvas = document.getElementById('op-back');
 	canvas.setAttribute("width", canvaswidth);
@@ -229,47 +247,70 @@ function deleteSubTree(word) {
 	}
 	
 	words[word.id] = undefined;
+	wave.getState().submitDelta({(word.id) : undefined});
 }
 
 /*
  * This function should be called on first load of the gadget.
  * This should setup initial state of elements if not already set.
- *
  */
-function setup() {
+function stateUpdated() {
 
-	//Setup last Id.
-	if (!lastId) {
-		lastStored = wave.getState().get('lastId');
-		if (lastStored) {
-			lastId = parseInt(lastStored);
-		} else {
-			lastId = 1;
+	var state = wave.getState();
+
+	//Update last Id from state.
+	lastStored = state.get('lastId');
+	if (lastStored) {
+		lastId = parseInt(lastStored);
+	} else {
+		lastId = 1;
+		wave.getState().submitDelta({'lastId' : 1});
+	}
+
+	//Update word list.
+	words = {};
+	//Loop through state looking for all words
+	//This should mean all state variables != lastId and curr.
+	for (key in state.getKeys()) {
+		if ((key != 'lastId') && (key != 'curr')) {
+			word = toWord(eval(state.get(key)));
+			words[word.id] = word;
 		}
 	}
 
-	//Setup curr.
+	//Setup curr. If curr doesn't exist in state, assume first load.
+	//If it exists in state, then we now have all information required
+	//to draw the canvas
 	if (!curr) {
-		currStored = wave.getState().get('curr');
-		if (currStored) {
+		//Setup event handlers.
+		root = $("#organic-poetry");
+		root.resizable({stop: resizeCanvas});
+		var canvas = document.getElementById('op-back');
+		canvas.setAttribute("height", root.height()-5);
+		canvas.setAttribute("width", root.width()-5);
+		
+		$("#add").click(addWords);
+		$("#delete").click(deleteSelected);
+	}
+
+	//Restore curr from state.
+	currStored = state.get('curr');
+	if (currStored) {
+		curr = toWord(eval(currStored));
+		//Deleting all existing nodes, and redrawing.
+		//Need to optimize this so only changes are redrawn.
+		var firstWord = words["start-node"].nextWord[0];
+		if (firstWord) {
+			deleteSubTree(firstWord);
 		}
-
-	root = $("#organic-poetry");
-	root.resizable({stop: resizeCanvas});
-	var canvas = document.getElementById('op-back');
-	canvas.setAttribute("height", root.height()-5);
-	canvas.setAttribute("width", root.width()-5);
-
-	$("#add").click(addWords);
-	$("#delete").click(deleteSelected);
-	
-	var s = new Word("Start", new Point(10,10), "start-node", "start");
-	drawWord(s);
-	updateCurrent(s);
-}
-
-function stateUpdated() {
-	
+		redrawFrom(words["start-node"]);
+		updateCurrent(curr);
+	} else {
+		var s = new Word("Start", new Point(10,10), "start-node", "start");
+		drawWord(s);
+		updateCurrent(s);
+		wave.getState().submitDelta({'curr' : wave.util.printJson(curr)});
+	}
 }
 
 function init() {

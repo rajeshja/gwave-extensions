@@ -1,8 +1,8 @@
 Events on which state needs to be updated.
-Start dragging a word:
+- Start dragging a word:
 	Update word old position
 
-Stop dragging a word:
+- Stop dragging a word:
 	Update word new position
 
 - Select a word:
@@ -11,6 +11,12 @@ Stop dragging a word:
 - Create new word:
 	Add word to state
 
-Delete a word:
+- Delete a word:
 	Remove word from state
 
+- Gadget load:
+	First load (nothing in state)
+	Subsequent loads (state exists)
+
+- Update events:
+	Change to curr, lastId or words
