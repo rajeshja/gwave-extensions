@@ -261,7 +261,7 @@ function stateUpdated() {
 
 	var state = wave.getState();
 
-	log(wave.util.printJson(state));
+	wave.log(wave.util.printJson(state));
 
 	//Update last Id from state.
 	lastStored = state.get('lastId');
