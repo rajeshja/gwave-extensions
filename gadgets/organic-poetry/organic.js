@@ -1,7 +1,4 @@
-var lastId = parseInt(wave.getState().get('lastId'));
-if (!lastId) {
-	lastId = 1;
-}
+var lastId = undefined;
 
 var curr = undefined;
 
@@ -47,34 +44,36 @@ function Word(text, location, id, type) {
 	words[this.id] = this;
 	wave.getState().submitDelta({(this.id) : wave.util.printJson(this)});
 
-	this.addPrev = function(prev) {
-		this.prevWords[this.prevWords.length] = prev;
-	}
-
-	this.addNext = function(next) {
-		this.nextWords[this.nextWords.length] = next;
-	}
-
-	this.removePrev = function(word) {
-		for (var i=0; i<this.prevWords.length; i++) {
-			if (word.id == this.prevWords[i].id) {
-				this.prevWords.splice(i, 1);
-			}
-		}
-	}
-
-	this.removeNext = function(word) {
-		for (var i=0; i<this.nextWords.length; i++) {
-			if (word.id == this.nextWords[i].id) {
-				this.nextWords.splice(i, 1);
-			}
-		}
-	}
+	this.addPrev = addPrev;
+	this.addNext = addNext;
+	this.removePrev = removePrev;
+	this.removeNext = removeNext;
 
 	if (type) {
 		this.type = type;
 	}
 
+}
+
+function addPrev(prev) {
+	this.prevWords[this.prevWords.length] = prev;
+}
+function addNext(next) {
+	this.nextWords[this.nextWords.length] = next;
+}
+function removePrev(word) {
+	for (var i=0; i<this.prevWords.length; i++) {
+		if (word.id == this.prevWords[i].id) {
+			this.prevWords.splice(i, 1);
+		}
+	}
+}
+function removeNext(word) {
+	for (var i=0; i<this.nextWords.length; i++) {
+		if (word.id == this.nextWords[i].id) {
+			this.nextWords.splice(i, 1);
+		}
+	}
 }
 
 function drawLine(frompos, topos) {
@@ -226,12 +225,34 @@ function deleteSubTree(word) {
 	for (var i=0; i<word.nextWords.length; i++) {
 		var nextWord = word.nextWords[i];
 		deleteSubTree(nextWord);
+		i--;
 	}
 	
 	words[word.id] = undefined;
 }
 
+/*
+ * This function should be called on first load of the gadget.
+ * This should setup initial state of elements if not already set.
+ *
+ */
 function setup() {
+
+	//Setup last Id.
+	if (!lastId) {
+		lastStored = wave.getState().get('lastId');
+		if (lastStored) {
+			lastId = parseInt(lastStored);
+		} else {
+			lastId = 1;
+		}
+	}
+
+	//Setup curr.
+	if (!curr) {
+		currStored = wave.getState().get('curr');
+		if (currStored) {
+		}
 
 	root = $("#organic-poetry");
 	root.resizable({stop: resizeCanvas});
