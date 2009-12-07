@@ -42,7 +42,7 @@ function Word(text, location, id, type) {
 	this.nextWords = [];
 	this.prevWords = [];
 	words[this.id] = this;
-	wave.getState().submitDelta({(this.id) : wave.util.printJson(this)});
+	wave.getState().submitDelta({this.id : wave.util.printJson(this)});
 
 	this.addPrev = addPrev;
 	this.addNext = addNext;
@@ -138,14 +138,14 @@ function recordStartPoint(e, ui) {
 	var w = words[this.id];
 	var pos = $(this).position();
 	w.oldPos = new Point(pos.left, pos.top);
-	wave.getState().submitDelta({(w.id) : wave.util.printJson(w)});
+	wave.getState().submitDelta({w.id : wave.util.printJson(w)});
 }
 
 function redrawConnectors(e, ui) {
 	var w = words[this.id];
 	var pos = $(this).position();
 	w.location = new Point(pos.left, pos.top);
-	wave.getState().submitDelta({(w.id) : wave.util.printJson(w)});
+	wave.getState().submitDelta({w.id : wave.util.printJson(w)});
 	
 	for (var i=0; i<w.prevWords.length; i++) {
 		var prevWord = w.prevWords[i];
@@ -210,7 +210,7 @@ function addWords(e) {
 							 new Point(curr.location.x, curr.location.y+20));
 			n.addPrev(curr);
 			curr.addNext(n);
-			wave.getState().submitDelta({(n.id) : wave.util.printJson(n)});
+			wave.getState().submitDelta({n.id : wave.util.printJson(n)});
 			drawWord(n);
 			drawLine(curr.location, n.location);
 			updateCurrent(n);
@@ -247,7 +247,7 @@ function deleteSubTree(word) {
 	}
 	
 	words[word.id] = undefined;
-	wave.getState().submitDelta({(word.id) : undefined});
+	wave.getState().submitDelta({word.id : undefined});
 }
 
 /*
