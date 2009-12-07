@@ -262,6 +262,7 @@ function stateUpdated() {
 	var state = wave.getState();
 
 	wave.log(wave.util.printJson(state));
+	log(wave.util.printJson(state));
 
 	//Update last Id from state.
 	lastStored = state.get('lastId');
@@ -322,6 +323,13 @@ function init() {
 	if (wave && wave.isInWaveContainer()) {
 		wave.setStateCallback(stateUpdated);
 	}
+}
+
+var logged="";
+
+function log(msg) {
+	logged = logged+msg;
+	$("#debug").text(logged);
 }
 
 gadgets.util.registerOnLoadHandler(init);

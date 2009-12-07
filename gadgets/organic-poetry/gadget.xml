@@ -21,7 +21,7 @@
 		<script type="text/javascript"
 						src="http://github.com/rajeshja/gwave-extensions/raw/master/gadgets/organic-poetry/organic.js"></script>
 		<div id="op-container">
-			<div id="stop">Waiting for dragging the image get started...</div>
+			<div id="debug">Waiting for dragging the image get started...</div>
 			<div id="controls">
 				<input id="newWord" type="text" value=""/>
 				<input id="add" type="button" value="Add"/>
