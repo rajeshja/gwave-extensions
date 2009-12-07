@@ -253,6 +253,10 @@ function deleteSubTree(word) {
 	wave.getState().submitValue(word.id, undefined);
 }
 
+function clearState() {
+	wave.getState().reset();
+}
+
 /*
  * This function should be called on first load of the gadget.
  * This should setup initial state of elements if not already set.
@@ -295,6 +299,7 @@ function stateUpdated() {
 		canvas.setAttribute("height", root.height()-5);
 		canvas.setAttribute("width", root.width()-5);
 		
+		$("#clear").click(clearState);
 		$("#add").click(addWords);
 		$("#delete").click(deleteSelected);
 	}
