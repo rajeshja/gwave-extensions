@@ -254,7 +254,8 @@ function deleteSubTree(word) {
 }
 
 function clearState() {
-	wave.getState().reset();
+	log("<br/>Clearing state.");
+	wave.getState().submitDelta({});
 }
 
 /*
