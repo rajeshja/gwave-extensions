@@ -138,15 +138,12 @@ function recordStartPoint(e, ui) {
 	var w = words[this.id];
 	var pos = $(this).position();
 	w.oldPos = new Point(pos.left, pos.top);
-
-	saveValue(w.id, w);
 }
 
 function redrawConnectors(e, ui) {
 	var w = words[this.id];
 	var pos = $(this).position();
 	w.location = new Point(pos.left, pos.top);
-	saveValue(w.id, w);
 	
 	for (var i=0; i<w.prevWords.length; i++) {
 		var prevWord = w.prevWords[i];
@@ -164,6 +161,8 @@ function redrawConnectors(e, ui) {
 		var nextWord = w.nextWords[i];
 		drawLine(w.location, nextWord.location);
 	}
+
+	saveValue(w.id, w);
 }
 
 function resizeCanvas(e, ui) {
@@ -181,8 +180,9 @@ function makeCurrent(e) {
 		$("#"+curr.id).removeClass("selected");
 	}
 	curr = words[this.id];
-	saveValue('curr', curr);
 	$(this).addClass("selected");
+
+	saveValue('curr', curr);
 }
 
 /* This function does not update state, for optimization purposes. Callers
@@ -232,11 +232,13 @@ function deleteSelected(e) {
 		var delta = deleteSubTree(curr);
 		delta['curr'] = undefined;
 		curr = undefined;
+
+		var canvas = document.getElementById('op-back');
+		canvas.setAttribute("width", canvaswidth);
+		redrawFrom(words["start-node"]);
+
 		saveDelta(delta);
 	}
-	var canvas = document.getElementById('op-back');
-	canvas.setAttribute("width", canvaswidth);
-	redrawFrom(words["start-node"]);
 }
 
 function deleteSubTree(word, deltaIn) {
