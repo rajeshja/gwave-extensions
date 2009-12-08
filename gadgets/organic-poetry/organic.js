@@ -56,21 +56,21 @@ function Word(text, location, id, type) {
 }
 
 function addPrev(prev) {
-	this.prevWords[this.prevWords.length] = prev;
+	this.prevWords[this.prevWords.length] = prev.id;
 }
 function addNext(next) {
-	this.nextWords[this.nextWords.length] = next;
+	this.nextWords[this.nextWords.length] = next.id;
 }
 function removePrev(word) {
 	for (var i=0; i<this.prevWords.length; i++) {
-		if (word.id == this.prevWords[i].id) {
+		if (this.prevWords[i] == word.id) {
 			this.prevWords.splice(i, 1);
 		}
 	}
 }
 function removeNext(word) {
 	for (var i=0; i<this.nextWords.length; i++) {
-		if (word.id == this.nextWords[i].id) {
+		if (this.nextWords[i] == word.id) {
 			this.nextWords.splice(i, 1);
 		}
 	}
@@ -128,7 +128,7 @@ function redrawFrom(w) {
 	drawWord(w);
 
 	for (var i=0; i<w.nextWords.length; i++) {
-		var nextWord = w.nextWords[i];
+		var nextWord = words[w.nextWords[i]];
 		drawLine(w.location, nextWord.location);
 		redrawFrom(nextWord);
 	}
@@ -146,19 +146,19 @@ function redrawConnectors(e, ui) {
 	w.location = new Point(pos.left, pos.top);
 	
 	for (var i=0; i<w.prevWords.length; i++) {
-		var prevWord = w.prevWords[i];
+		var prevWord = words[w.prevWords[i]];
 		clearLine(prevWord.location, w.oldPos);
 	}
 	for (var i=0; i<w.nextWords.length; i++) {
-		var nextWord = w.nextWords[i];
+		var nextWord = words[w.nextWords[i]];
 		clearLine(w.oldPos, nextWord.location);
 	}
 	for (var i=0; i<w.prevWords.length; i++) {
-		var prevWord = w.prevWords[i];
+		var prevWord = words[w.prevWords[i]];
 		drawLine(prevWord.location, w.location);
 	}
 	for (var i=0; i<w.nextWords.length; i++) {
-		var nextWord = w.nextWords[i];
+		var nextWord = words[w.nextWords[i]];
 		drawLine(w.location, nextWord.location);
 	}
 
@@ -253,7 +253,7 @@ function deleteSubTree(word, deltaIn) {
 	deltaOut[word.id] = 'remove';
 
 	for (var i=0; i<word.prevWords.length; i++) {
-		var prevWord = word.prevWords[i];
+		var prevWord = words[word.prevWords[i]];
 		clearLine(prevWord.location, word.location);
 		prevWord.removeNext(word);
 		if (deltaOut[prevWord.id] != 'remove') {
@@ -262,7 +262,7 @@ function deleteSubTree(word, deltaIn) {
 		word.removePrev(prevWord);
 	}
 	for (var i=0; i<word.nextWords.length; i++) {
-		var nextWord = word.nextWords[i];
+		var nextWord = words[word.nextWords[i]];
 		deltaOut = deleteSubTree(nextWord, deltaOut);
 		i--;
 	}
@@ -342,7 +342,7 @@ function stateUpdated() {
 		curr = toWord(JSON.parse(currStored));
 		//Deleting all existing nodes, and redrawing.
 		//Need to optimize this so only changes are redrawn.
-		var firstWord = words["start-node"].nextWords[0];
+		var firstWord = words[words["start-node"].nextWords[0]];
 		if (firstWord) {
 			//Don't save the deletes to state.
 			deleteSubTree(firstWord);
