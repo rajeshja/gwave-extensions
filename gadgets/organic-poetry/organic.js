@@ -33,7 +33,7 @@ function Word(text, location, id, type) {
 	} else {
 		this.id = 'w_' + lastId;
 		lastId ++;
-		wave.getState().submitValue('lastId', lastId);
+		saveValue('lastId', lastId);
 	}
 
 	this.text = text;
@@ -42,7 +42,7 @@ function Word(text, location, id, type) {
 	this.nextWords = [];
 	this.prevWords = [];
 	words[this.id] = this;
-	wave.getState().submitValue(this.id, wave.util.printJson(this));
+	saveValue(this.id, this);
 
 	this.addPrev = addPrev;
 	this.addNext = addNext;
@@ -139,14 +139,14 @@ function recordStartPoint(e, ui) {
 	var pos = $(this).position();
 	w.oldPos = new Point(pos.left, pos.top);
 
-	wave.getState().submitValue(w.id, wave.util.printJson(w));
+	saveValue(w.id, w);
 }
 
 function redrawConnectors(e, ui) {
 	var w = words[this.id];
 	var pos = $(this).position();
 	w.location = new Point(pos.left, pos.top);
-	wave.getState().submitValue(w.id, wave.util.printJson(w));
+	saveValue(w.id, w);
 	
 	for (var i=0; i<w.prevWords.length; i++) {
 		var prevWord = w.prevWords[i];
@@ -181,7 +181,7 @@ function makeCurrent(e) {
 		$("#"+curr.id).removeClass("selected");
 	}
 	curr = words[this.id];
-	wave.getState().submitValue('curr', wave.util.printJson(curr));
+	saveValue('curr', curr);
 	$(this).addClass("selected");
 }
 
@@ -193,7 +193,7 @@ function updateCurrent(word) {
 		$("#"+curr.id).removeClass("selected");
 	}
 	curr = word;
-	//wave.getState().submitValue('curr', wave.util.printJson(curr));
+	//saveValue('curr', curr);
 	$("#"+word.id).addClass("selected");
 }
 
@@ -212,7 +212,7 @@ function addWords(e) {
 			n.addPrev(curr);
 			curr.addNext(n);
 
-			wave.getState().submitValue(n.id, wave.util.printJson(n));
+			saveValue(n.id, n);
 
 			drawWord(n);
 			drawLine(curr.location, n.location);
@@ -220,14 +220,14 @@ function addWords(e) {
 		}
 	}
 	//Updating curr state only at the end to minimize need to sync.
-	wave.getState().submitValue('curr', wave.util.printJson(curr));
+	saveValue('curr', curr);
 }
 
 function deleteSelected(e) {
 	if (curr && (curr.id != "start-node")) {
 		deleteSubTree(curr);
 		curr = undefined;
-		wave.getState().submitValue('curr', undefined);
+		saveValue('curr', undefined);
 	}
 	var canvas = document.getElementById('op-back');
 	canvas.setAttribute("width", canvaswidth);
@@ -250,7 +250,7 @@ function deleteSubTree(word) {
 	}
 	
 	words[word.id] = undefined;
-	wave.getState().submitValue(word.id, undefined);
+	saveValue(word.id, undefined);
 }
 
 function clearState() {
@@ -277,7 +277,7 @@ function stateUpdated() {
 		lastId = parseInt(lastStored);
 	} else {
 		lastId = 1;
-		wave.getState().submitValue('lastId', 1);
+		saveValue('lastId', 1);
 	}
 
 	//Update word list.
@@ -288,7 +288,7 @@ function stateUpdated() {
 		if ((key != 'lastId') && (key != 'curr')
 			&& (key.substring(0,2) == "w_")) {
 			log(key + " : " + state.get(key) + ".");
-			word = toWord(eval(state.get(key)));
+			word = toWord(JSON.parse(state.get(key)));
 			words[word.id] = word;
 		}
 	}
@@ -315,7 +315,7 @@ function stateUpdated() {
 	currStored = state.get('curr');
 	if (currStored) {
 		log("curr : " + currStored + ".");
-		curr = toWord(eval(currStored));
+		curr = toWord(JSON.parse(currStored));
 		//Deleting all existing nodes, and redrawing.
 		//Need to optimize this so only changes are redrawn.
 		var firstWord = words["start-node"].nextWord[0];
@@ -328,7 +328,7 @@ function stateUpdated() {
 		var s = new Word("Start", new Point(10,10), "start-node", "start");
 		drawWord(s);
 		updateCurrent(s);
-		wave.getState().submitValue('curr', wave.util.printJson(curr));
+		saveValue('curr', curr);
 	}
 }
 
@@ -340,7 +340,7 @@ function init() {
 
 function saveValue(key, value) {
 	if (value) {
-		wave.getState().submitValue(key, wave.util.printJson(value));
+		wave.getState().submitValue(key, JSON.stringify(value));
 	} else {
 		wave.getState().submitValue(key, undefined);
 	}
