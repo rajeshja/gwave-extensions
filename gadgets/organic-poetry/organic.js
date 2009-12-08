@@ -31,7 +31,7 @@ function Word(text, location, id, type) {
 	if (id) {
 		this.id = id;
 	} else {
-		this.id = 'w' + lastId;
+		this.id = 'w_' + lastId;
 		lastId ++;
 		wave.getState().submitValue('lastId', lastId);
 	}
@@ -266,9 +266,7 @@ function stateUpdated() {
 
 	var state = wave.getState();
 
-	if (state.get('curr') == 'undefined') {
 		state.reset();
-	}
 
 	wave.log(wave.util.printJson(state));
 	//log(wave.util.printJson(state));
@@ -287,7 +285,8 @@ function stateUpdated() {
 	//Loop through state looking for all words
 	//This should mean all state variables != lastId and curr.
 	for (key in state.getKeys()) {
-		if ((key != 'lastId') && (key != 'curr')) {
+		if ((key != 'lastId') && (key != 'curr')
+			&& (key.substring(0,2) == "w_")) {
 			log(key + " : " + state.get(key) + ".");
 			word = toWord(eval(state.get(key)));
 			words[word.id] = word;
