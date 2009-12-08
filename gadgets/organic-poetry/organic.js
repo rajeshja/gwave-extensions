@@ -33,7 +33,7 @@ function Word(text, location, id, type) {
 	} else {
 		this.id = 'w_' + lastId;
 		lastId ++;
-		saveValue('lastId', lastId);
+		//saveValue('lastId', lastId);
 	}
 
 	this.text = text;
@@ -42,7 +42,7 @@ function Word(text, location, id, type) {
 	this.nextWords = [];
 	this.prevWords = [];
 	words[this.id] = this;
-	saveValue(this.id, this);
+	//saveValue(this.id, this);
 
 	this.addPrev = addPrev;
 	this.addNext = addNext;
@@ -205,6 +205,8 @@ function addWords(e) {
 
 	var entered = $("#newWord").val().split(" ");
 
+	delta = {};
+
 	for(i=0; i<entered.length; i++) {
 		if (entered[i] && (entered[i].length>0)) {
 			var n = new Word(entered[i],
@@ -212,7 +214,7 @@ function addWords(e) {
 			n.addPrev(curr);
 			curr.addNext(n);
 
-			saveValue(n.id, n);
+			delta[n.id] = JSON.stringify(n);
 
 			drawWord(n);
 			drawLine(curr.location, n.location);
@@ -220,37 +222,49 @@ function addWords(e) {
 		}
 	}
 	//Updating curr state only at the end to minimize need to sync.
-	saveValue('curr', curr);
+	
+	delta['curr'] = JSON.stringify(curr);
+	saveDelta(delta);
 }
 
 function deleteSelected(e) {
 	if (curr && (curr.id != "start-node")) {
-		deleteSubTree(curr);
+		var delta = deleteSubTree(curr);
+		delta['curr'] = undefined;
 		curr = undefined;
-		saveValue('curr', undefined);
+		saveDelta(delta);
 	}
 	var canvas = document.getElementById('op-back');
 	canvas.setAttribute("width", canvaswidth);
 	redrawFrom(words["start-node"]);
 }
 
-function deleteSubTree(word) {
+function deleteSubTree(word, deltaIn) {
 	$("#"+word.id).remove();
+
+	var deltaOut = deltaIn;
+
+	if (!deltaOut) {
+		deltaOut = {};
+	}
 
 	for (var i=0; i<word.prevWords.length; i++) {
 		var prevWord = word.prevWords[i];
 		clearLine(prevWord.location, word.location);
 		prevWord.removeNext(word);
+		deltaOut[prevWord.id] = JSON.stringify(prevWord);
 		word.removePrev(prevWord);
 	}
 	for (var i=0; i<word.nextWords.length; i++) {
 		var nextWord = word.nextWords[i];
-		deleteSubTree(nextWord);
+		deltaOut = deleteSubTree(nextWord, deltaOut);
 		i--;
 	}
 	
 	words[word.id] = undefined;
-	saveValue(word.id, undefined);
+	deltaOut[word.id] = undefined;
+
+	return deltaOut;
 }
 
 function clearState() {
@@ -277,7 +291,7 @@ function stateUpdated() {
 		lastId = parseInt(lastStored);
 	} else {
 		lastId = 1;
-		saveValue('lastId', 1);
+		//saveValue('lastId', 1);
 	}
 
 	//Update word list.
@@ -297,7 +311,7 @@ function stateUpdated() {
 		}
 	}
 
-	//Setup curr. If curr doesn't exist in state, assume first load.
+	//If curr doesn't exist in state, assume first load.
 	//If it exists in state, then we now have all information required
 	//to draw the canvas
 	if (!curr) {
@@ -324,6 +338,7 @@ function stateUpdated() {
 		//Need to optimize this so only changes are redrawn.
 		var firstWord = words["start-node"].nextWords[0];
 		if (firstWord) {
+			//Don't save the deletes to state.
 			deleteSubTree(firstWord);
 		}
 		redrawFrom(words["start-node"]);
@@ -332,7 +347,7 @@ function stateUpdated() {
 		var s = new Word("Start", new Point(10,10), "start-node", "start");
 		drawWord(s);
 		updateCurrent(s);
-		saveValue('curr', curr);
+		//saveValue('curr', curr);
 	}
 }
 
@@ -347,6 +362,14 @@ function saveValue(key, value) {
 		wave.getState().submitValue(key, JSON.stringify(value));
 	} else {
 		wave.getState().submitValue(key, undefined);
+	}
+}
+
+function saveDelta(delta) {
+	if (delta) {
+		wave.getState().submitDelta(delta);
+	} else {
+		wave.getState().submitDelta(undefined);
 	}
 }
 
