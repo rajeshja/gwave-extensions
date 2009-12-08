@@ -266,7 +266,7 @@ function stateUpdated() {
 
 	var state = wave.getState();
 
-		state.reset();
+	//state.reset();
 
 	wave.log(wave.util.printJson(state));
 	//log(wave.util.printJson(state));
@@ -350,7 +350,7 @@ var logged="";
 
 function log(msg) {
 	logged = logged+msg;
-	$("#debug").text(logged);
+	//$("#debug").text(logged);
 }
 
 gadgets.util.registerOnLoadHandler(init);
