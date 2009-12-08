@@ -248,11 +248,15 @@ function deleteSubTree(word, deltaIn) {
 		deltaOut = {};
 	}
 
+	deltaOut[word.id] = 'remove';
+
 	for (var i=0; i<word.prevWords.length; i++) {
 		var prevWord = word.prevWords[i];
 		clearLine(prevWord.location, word.location);
 		prevWord.removeNext(word);
-		deltaOut[prevWord.id] = JSON.stringify(prevWord);
+		if (deltaOut[prevWord.id] != 'remove') {
+			deltaOut[prevWord.id] = JSON.stringify(prevWord);
+		}
 		word.removePrev(prevWord);
 	}
 	for (var i=0; i<word.nextWords.length; i++) {
