@@ -337,9 +337,18 @@ function init() {
 	}
 }
 
+function saveValue(key, value) {
+	if (value) {
+		wave.getState().submitValue(key, wave.util.printJson(value));
+	} else {
+		wave.getState().submitValue(key, undefined);
+	}
+}
+
 var logged="";
 
 function log(msg) {
+	logged = "";
 	logged = logged+msg;
 	$("#debug").text(logged);
 }
