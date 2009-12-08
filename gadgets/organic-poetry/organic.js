@@ -322,7 +322,7 @@ function stateUpdated() {
 		curr = toWord(JSON.parse(currStored));
 		//Deleting all existing nodes, and redrawing.
 		//Need to optimize this so only changes are redrawn.
-		var firstWord = words["start-node"].nextWord[0];
+		var firstWord = words["start-node"].nextWords[0];
 		if (firstWord) {
 			deleteSubTree(firstWord);
 		}
