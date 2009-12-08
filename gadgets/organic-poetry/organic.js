@@ -268,7 +268,7 @@ function stateUpdated() {
 
 	//state.reset();
 
-	wave.log(wave.util.printJson(state));
+	wave.log(JSON.stringify(state));
 	//log(wave.util.printJson(state));
 
 	//Update last Id from state.
