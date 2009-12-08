@@ -271,7 +271,7 @@ function stateUpdated() {
 	}
 
 	wave.log(wave.util.printJson(state));
-	log(wave.util.printJson(state));
+	//log(wave.util.printJson(state));
 
 	//Update last Id from state.
 	lastStored = state.get('lastId');
@@ -288,6 +288,7 @@ function stateUpdated() {
 	//This should mean all state variables != lastId and curr.
 	for (key in state.getKeys()) {
 		if ((key != 'lastId') && (key != 'curr')) {
+			log(key + " : " + eval(state.get(key) + ".");
 			word = toWord(eval(state.get(key)));
 			words[word.id] = word;
 		}
@@ -348,7 +349,6 @@ function saveValue(key, value) {
 var logged="";
 
 function log(msg) {
-	logged = "";
 	logged = logged+msg;
 	$("#debug").text(logged);
 }
