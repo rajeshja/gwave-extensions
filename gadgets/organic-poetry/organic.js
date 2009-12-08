@@ -286,7 +286,8 @@ function stateUpdated() {
 	//This should mean all state variables != lastId and curr.
 	for (key in state.getKeys()) {
 		if ((key != 'lastId') && (key != 'curr')
-			&& (key.substring(0,2) == "w_")) {
+			&& ((key == 'start-node')
+				|| (key.substring(0,2) == 'w_'))) {
 			log(key + " : " + state.get(key) + ".");
 			word = toWord(JSON.parse(state.get(key)));
 			words[word.id] = word;
