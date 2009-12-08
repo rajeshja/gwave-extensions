@@ -288,7 +288,7 @@ function stateUpdated() {
 	//This should mean all state variables != lastId and curr.
 	for (key in state.getKeys()) {
 		if ((key != 'lastId') && (key != 'curr')) {
-			log(key + " : " + eval(state.get(key) + ".");
+			log(key + " : " + state.get(key) + ".");
 			word = toWord(eval(state.get(key)));
 			words[word.id] = word;
 		}
@@ -315,6 +315,7 @@ function stateUpdated() {
 	//Restore curr from state.
 	currStored = state.get('curr');
 	if (currStored) {
+		log("curr : " + currStored + ".");
 		curr = toWord(eval(currStored));
 		//Deleting all existing nodes, and redrawing.
 		//Need to optimize this so only changes are redrawn.
