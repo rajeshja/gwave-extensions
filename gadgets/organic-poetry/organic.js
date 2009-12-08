@@ -284,7 +284,7 @@ function stateUpdated() {
 	words = {};
 	//Loop through state looking for all words
 	//This should mean all state variables != lastId and curr.
-	for (key in state.getKeys()) {
+	for (key in state) {
 		if ((key != 'lastId') && (key != 'curr')
 			&& ((key == 'start-node')
 				|| (key.substring(0,2) == 'w_'))) {
