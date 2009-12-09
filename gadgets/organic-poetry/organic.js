@@ -274,6 +274,12 @@ function deleteSubTree(word, deltaIn) {
 	return deltaOut;
 }
 
+function unDrawWords() {
+	$("#organic-poetry div.word").remove();
+	var canvas = document.getElementById('op-back');
+	canvas.setAttribute("width", canvaswidth);
+}
+
 function clearState() {
 	log("<br/>Clearing state.");
 	wave.getState().reset();
@@ -346,7 +352,7 @@ function stateUpdated() {
 		var firstWord = words[words["start-node"].nextWords[0]];
 		if (firstWord) {
 			//Don't save the deletes to state.
-			deleteSubTree(firstWord);
+			unDrawWords();
 		}
 		redrawFrom(words["start-node"]);
 		updateCurrent(curr);
