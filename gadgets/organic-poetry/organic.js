@@ -56,21 +56,21 @@ function Word(text, location, id, type) {
 }
 
 function addPrev(prev) {
-	this.prevWords[this.prevWords.length] = prev;
+	this.prevWords[this.prevWords.length] = prev.id;
 }
 function addNext(next) {
-	this.nextWords[this.nextWords.length] = next;
+	this.nextWords[this.nextWords.length] = next.id;
 }
 function removePrev(word) {
 	for (var i=0; i<this.prevWords.length; i++) {
-		if (word.id == this.prevWords[i].id) {
+		if (this.prevWords[i] == word.id) {
 			this.prevWords.splice(i, 1);
 		}
 	}
 }
 function removeNext(word) {
 	for (var i=0; i<this.nextWords.length; i++) {
-		if (word.id == this.nextWords[i].id) {
+		if (this.nextWords[i] == word.id) {
 			this.nextWords.splice(i, 1);
 		}
 	}
@@ -128,7 +128,7 @@ function redrawFrom(w) {
 	drawWord(w);
 
 	for (var i=0; i<w.nextWords.length; i++) {
-		var nextWord = w.nextWords[i];
+		var nextWord = words[w.nextWords[i]];
 		drawLine(w.location, nextWord.location);
 		redrawFrom(nextWord);
 	}
@@ -138,32 +138,31 @@ function recordStartPoint(e, ui) {
 	var w = words[this.id];
 	var pos = $(this).position();
 	w.oldPos = new Point(pos.left, pos.top);
-
-	saveValue(w.id, w);
 }
 
 function redrawConnectors(e, ui) {
 	var w = words[this.id];
 	var pos = $(this).position();
 	w.location = new Point(pos.left, pos.top);
-	saveValue(w.id, w);
 	
 	for (var i=0; i<w.prevWords.length; i++) {
-		var prevWord = w.prevWords[i];
+		var prevWord = words[w.prevWords[i]];
 		clearLine(prevWord.location, w.oldPos);
 	}
 	for (var i=0; i<w.nextWords.length; i++) {
-		var nextWord = w.nextWords[i];
+		var nextWord = words[w.nextWords[i]];
 		clearLine(w.oldPos, nextWord.location);
 	}
 	for (var i=0; i<w.prevWords.length; i++) {
-		var prevWord = w.prevWords[i];
+		var prevWord = words[w.prevWords[i]];
 		drawLine(prevWord.location, w.location);
 	}
 	for (var i=0; i<w.nextWords.length; i++) {
-		var nextWord = w.nextWords[i];
+		var nextWord = words[w.nextWords[i]];
 		drawLine(w.location, nextWord.location);
 	}
+
+	saveValue(w.id, w);
 }
 
 function resizeCanvas(e, ui) {
@@ -181,8 +180,9 @@ function makeCurrent(e) {
 		$("#"+curr.id).removeClass("selected");
 	}
 	curr = words[this.id];
-	saveValue('curr', curr);
 	$(this).addClass("selected");
+
+	saveValue('curr', curr);
 }
 
 /* This function does not update state, for optimization purposes. Callers
@@ -233,11 +233,13 @@ function deleteSelected(e) {
 		var delta = deleteSubTree(curr);
 		delta['curr'] = undefined;
 		curr = undefined;
+
+		var canvas = document.getElementById('op-back');
+		canvas.setAttribute("width", canvaswidth);
+		redrawFrom(words["start-node"]);
+
 		saveDelta(delta);
 	}
-	var canvas = document.getElementById('op-back');
-	canvas.setAttribute("width", canvaswidth);
-	redrawFrom(words["start-node"]);
 }
 
 function deleteSubTree(word, deltaIn) {
@@ -249,15 +251,19 @@ function deleteSubTree(word, deltaIn) {
 		deltaOut = {};
 	}
 
+	deltaOut[word.id] = 'remove';
+
 	for (var i=0; i<word.prevWords.length; i++) {
-		var prevWord = word.prevWords[i];
+		var prevWord = words[word.prevWords[i]];
 		clearLine(prevWord.location, word.location);
 		prevWord.removeNext(word);
-		deltaOut[prevWord.id] = JSON.stringify(prevWord);
+		if (deltaOut[prevWord.id] != 'remove') {
+			deltaOut[prevWord.id] = JSON.stringify(prevWord);
+		}
 		word.removePrev(prevWord);
 	}
 	for (var i=0; i<word.nextWords.length; i++) {
-		var nextWord = word.nextWords[i];
+		var nextWord = words[word.nextWords[i]];
 		deltaOut = deleteSubTree(nextWord, deltaOut);
 		i--;
 	}
@@ -337,7 +343,7 @@ function stateUpdated() {
 		curr = toWord(JSON.parse(currStored));
 		//Deleting all existing nodes, and redrawing.
 		//Need to optimize this so only changes are redrawn.
-		var firstWord = words["start-node"].nextWords[0];
+		var firstWord = words[words["start-node"].nextWords[0]];
 		if (firstWord) {
 			//Don't save the deletes to state.
 			deleteSubTree(firstWord);
