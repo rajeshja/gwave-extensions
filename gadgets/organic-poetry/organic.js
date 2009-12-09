@@ -213,7 +213,8 @@ function addWords(e) {
 							 new Point(curr.location.x, curr.location.y+20));
 			n.addPrev(curr);
 			curr.addNext(n);
-
+			
+			delta['lastId'] = lastId;
 			delta[n.id] = JSON.stringify(n);
 			delta[curr.id] = JSON.stringify(curr);
 
@@ -349,12 +350,19 @@ function stateUpdated() {
 		curr = toWord(JSON.parse(currStored));
 		//Deleting all existing nodes, and redrawing.
 		//Need to optimize this so only changes are redrawn.
-		var firstWord = words[words["start-node"].nextWords[0]];
-		if (firstWord) {
-			//Don't save the deletes to state.
-			unDrawWords();
+		if (words["start-node"] 
+			&& words["start-node"].nextWords
+			&& words["start-node"].nextWords.length > 0) {
+			
+			var firstWord = words[words["start-node"].nextWords[0]];
+			if (firstWord) {
+				//Don't save the deletes to state.
+				unDrawWords();
+			}
+			redrawFrom(words["start-node"]);
+		} else {
+			
 		}
-		redrawFrom(words["start-node"]);
 		updateCurrent(curr);
 	} else {
 		var s = new Word("Start", new Point(10,10), "start-node", "start");
