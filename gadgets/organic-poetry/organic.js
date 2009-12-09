@@ -307,7 +307,6 @@ function stateUpdated() {
 		lastId = parseInt(lastStored);
 
 		//Update word list.
-		words = {};
 		//Loop through state looking for all words
 		//This should mean all state variables != lastId and curr.
 		var stateFields = state.getKeys();
@@ -360,6 +359,8 @@ function stateUpdated() {
 		$("#clear").click(clearState);
 		$("#add").click(addWords);
 		$("#delete").click(deleteSelected);
+
+		words = {};
 	
 		var s = new Word("Start", new Point(10,10), "start-node", "start");
 		drawWord(s);
