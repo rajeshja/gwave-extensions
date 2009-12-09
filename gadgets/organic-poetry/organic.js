@@ -310,6 +310,8 @@ function stateUpdated() {
 		//Loop through state looking for all words
 		//This should mean all state variables != lastId and curr.
 		var stateFields = state.getKeys();
+
+		words = {};
 	
 		for (i=0; i<stateFields.length; i++) {
 			key = stateFields[i];
