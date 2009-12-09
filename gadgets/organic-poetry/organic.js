@@ -265,8 +265,10 @@ function deleteSubTree(word, deltaIn) {
 	}
 	for (var i=0; i<word.nextWords.length; i++) {
 		var nextWord = words[word.nextWords[i]];
-		deltaOut = deleteSubTree(nextWord, deltaOut);
-		i--;
+		if (nextWord) {
+			deltaOut = deleteSubTree(nextWord, deltaOut);
+			i--;
+		}
 	}
 	
 	words[word.id] = undefined;
