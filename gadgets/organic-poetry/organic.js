@@ -215,6 +215,7 @@ function addWords(e) {
 			curr.addNext(n);
 
 			delta[n.id] = JSON.stringify(n);
+			delta[curr.id] = JSON.stringify(curr);
 
 			drawWord(n);
 			drawLine(curr.location, n.location);
