@@ -305,51 +305,30 @@ function stateUpdated() {
 	lastStored = state.get('lastId');
 	if (lastStored) {
 		lastId = parseInt(lastStored);
-	} else {
-		lastId = 1;
-		//saveValue('lastId', 1);
-	}
 
-	//Update word list.
-	words = {};
-	//Loop through state looking for all words
-	//This should mean all state variables != lastId and curr.
-	var stateFields = state.getKeys();
-
-	for (i=0; i<stateFields.length; i++) {
-		key = stateFields[i];
-		if ((key != 'lastId') && (key != 'curr')
-			&& ((key == 'start-node')
-				|| (key.substring(0,2) == 'w_'))) {
-			log(key + " : " + state.get(key) + ".");
-			word = toWord(JSON.parse(state.get(key)));
-			words[word.id] = word;
+		//Update word list.
+		words = {};
+		//Loop through state looking for all words
+		//This should mean all state variables != lastId and curr.
+		var stateFields = state.getKeys();
+	
+		for (i=0; i<stateFields.length; i++) {
+			key = stateFields[i];
+			if ((key != 'lastId') && (key != 'curr')
+				&& ((key == 'start-node')
+					|| (key.substring(0,2) == 'w_'))) {
+				log(key + " : " + state.get(key) + ".");
+				word = toWord(JSON.parse(state.get(key)));
+				words[word.id] = word;
+			}
 		}
-	}
 
-	//If curr doesn't exist in state, assume first load.
-	//If it exists in state, then we now have all information required
-	//to draw the canvas
-	if (!curr) {
-		//Setup event handlers.
-		root = $("#organic-poetry");
-		root.resizable({stop: resizeCanvas});
-		var canvas = document.getElementById('op-back');
-		canvas.setAttribute("height", root.height()-5);
-		canvas.setAttribute("width", root.width()-5);
-		
-		$("#clear").click(clearState);
-		$("#add").click(addWords);
-		$("#delete").click(deleteSelected);
-	} else {
-		log("<br/>But curr was not null");
-	}
+		//Restore curr from state.
+		currStored = state.get('curr');
+		if (currStored) {
+			curr = toWord(JSON.parse(currStored));
+		}
 
-	//Restore curr from state.
-	currStored = state.get('curr');
-	if (currStored) {
-		log("curr : " + currStored + ".");
-		curr = toWord(JSON.parse(currStored));
 		//Deleting all existing nodes, and redrawing.
 		//Need to optimize this so only changes are redrawn.
 		if (words["start-node"] 
@@ -362,16 +341,37 @@ function stateUpdated() {
 				unDrawWords();
 			}
 			redrawFrom(words["start-node"]);
-		} else {
-			
 		}
-		updateCurrent(curr);
+
+		if (curr) {
+			updateCurrent(curr);
+		}
+
 	} else {
+		lastId = 1;
+		
+		//Setup event handlers.
+		root = $("#organic-poetry");
+		root.resizable({stop: resizeCanvas});
+		var canvas = document.getElementById('op-back');
+		canvas.setAttribute("height", root.height()-5);
+		canvas.setAttribute("width", root.width()-5);
+		
+		$("#clear").click(clearState);
+		$("#add").click(addWords);
+		$("#delete").click(deleteSelected);
+	
 		var s = new Word("Start", new Point(10,10), "start-node", "start");
 		drawWord(s);
 		updateCurrent(s);
-		//saveValue('curr', curr);
+
+		var delta = {};
+		delta['lastId'] = lastId;
+		delta['curr'] = JSON.stringify(curr);
+
+		saveDelta(delta);
 	}
+
 }
 
 function init() {
