@@ -7,19 +7,19 @@
 	<Content type="html">
 		<![CDATA[
 		<link type="text/css" rel="stylesheet"
-					href="http://github.com/rajeshja/gwave-extensions/raw/master/gadgets/organic-poetry/poetry.css"
+					href="poetry.css"
 					/>
 		<link type="text/css" rel="stylesheet"
-					href="http://github.com/rajeshja/gwave-extensions/raw/master/gadgets/organic-poetry/jquery-ui-1.7.2.custom.css"
+					href="jquery-ui-1.7.2.custom.css"
 					/>
 		<script type="text/javascript"
-						src="http://github.com/rajeshja/gwave-extensions/raw/master/gadgets/json2min.js"></script>
+						src="../json2min.js"></script>
 		<script type="text/javascript"
-						src="http://github.com/rajeshja/gwave-extensions/raw/master/gadgets/organic-poetry/jquery-1.3.2.min.js"></script>
+						src="jquery-1.3.2.min.js"></script>
 		<script type="text/javascript"
-						src="http://github.com/rajeshja/gwave-extensions/raw/master/gadgets/organic-poetry/jquery-ui-1.7.2.custom-drag-resize.min.js"></script>
+						src="jquery-ui-1.7.2.custom-drag-resize.min.js"></script>
 		<script type="text/javascript"
-						src="http://github.com/rajeshja/gwave-extensions/raw/master/gadgets/organic-poetry/organic.js"></script>
+						src="organic.js"></script>
 		<div id="op-container">
 			<div id="debug">Waiting for dragging the image get started...</div>
 			<div id="controls">
