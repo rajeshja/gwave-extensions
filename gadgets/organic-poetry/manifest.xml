@@ -1,0 +1,10 @@
+<extension
+		name="Organic Poetry Gadget"
+		thumbnailUrl="http://github.com/rajeshja/gwave-extensions/raw/master/gadgets/organic-poetry/images/screenshot.png"
+		description="A fun gadget for creating divergent poetry. Each word can be followed by multiple words, and so on. The poem, for lack of a better word, is a tree, not a sentence!"> 
+	<author name="Rajesh J Advani"/> 
+	<menuHook location="toolbar" text="Add Organic Poetry Gadget"
+						iconUrl="http://github.com/rajeshja/gwave-extensions/raw/master/gadgets/organic-poetry/images/op-icon.png"> 
+		<insertGadget url="http://github.com/rajeshja/gwave-extensions/raw/master/gadgets/organic-poetry/gadget.xml"/> 
+	</menuHook> 
+</extension> 
