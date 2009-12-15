@@ -314,7 +314,6 @@ function stateUpdated() {
 		canvas.setAttribute("height", root.height()-5);
 		canvas.setAttribute("width", root.width()-5);
 		
-		$("#clear").click(clearState);
 		$("#add").click(addWords);
 		$("#delete").click(deleteSelected);
 	}
