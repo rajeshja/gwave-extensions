@@ -162,7 +162,12 @@ function redrawConnectors(e, ui) {
 		drawLine(w.location, nextWord.location);
 	}
 
-	saveValue(w.id, w);
+	updateCurrent(w);
+	var delta = {};
+	delta[curr.id] = JSON.stringify(curr);
+	delta[w.id] = JSON.stringify(w);
+
+	saveDelta(delta);
 }
 
 function resizeCanvas(e, ui) {
