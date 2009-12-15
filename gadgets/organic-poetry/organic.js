@@ -301,6 +301,19 @@ function stateUpdated() {
 	wave.log(JSON.stringify(state));
 	//log(wave.util.printJson(state));
 
+	if (!lastId) {
+		//Setup event handlers.
+		root = $("#organic-poetry");
+		root.resizable({stop: resizeCanvas});
+		var canvas = document.getElementById('op-back');
+		canvas.setAttribute("height", root.height()-5);
+		canvas.setAttribute("width", root.width()-5);
+		
+		$("#clear").click(clearState);
+		$("#add").click(addWords);
+		$("#delete").click(deleteSelected);
+	}
+
 	//Update last Id from state.
 	lastStored = state.get('lastId');
 	if (lastStored) {
@@ -332,35 +345,28 @@ function stateUpdated() {
 
 		//Deleting all existing nodes, and redrawing.
 		//Need to optimize this so only changes are redrawn.
-		if (words["start-node"] 
-			&& words["start-node"].nextWords
-			&& words["start-node"].nextWords.length > 0) {
-			
-			var firstWord = words[words["start-node"].nextWords[0]];
-			if (firstWord) {
-				//Don't save the deletes to state.
-				unDrawWords();
-			}
-			redrawFrom(words["start-node"]);
-		}
+		if (words["start-node"]) {
 
-		if (curr) {
-			updateCurrent(curr);
-		}
+			if (words["start-node"].nextWords
+				&& words["start-node"].nextWords.length > 0) {
+			
+				var firstWord = words[words["start-node"].nextWords[0]];
+				if (firstWord) {
+					//Don't save the deletes to state.
+					unDrawWords();
+				}
+				redrawFrom(words["start-node"]);
+			} else {
+				drawWord(words["start-node"]);
+			}
+
+			if (curr) {
+				updateCurrent(curr);
+			}
+
 
 	} else {
 		lastId = 1;
-		
-		//Setup event handlers.
-		root = $("#organic-poetry");
-		root.resizable({stop: resizeCanvas});
-		var canvas = document.getElementById('op-back');
-		canvas.setAttribute("height", root.height()-5);
-		canvas.setAttribute("width", root.width()-5);
-		
-		$("#clear").click(clearState);
-		$("#add").click(addWords);
-		$("#delete").click(deleteSelected);
 
 		words = {};
 	
