@@ -377,6 +377,7 @@ function stateUpdated() {
 		var delta = {};
 		delta['lastId'] = lastId;
 		delta['curr'] = JSON.stringify(curr);
+		delta[s.id] = JSON.stringify(s);
 
 		saveDelta(delta);
 	}
