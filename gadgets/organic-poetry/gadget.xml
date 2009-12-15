@@ -23,7 +23,6 @@
 		<div id="op-container">
 			<div id="debug">Waiting for dragging the image get started...</div>
 			<div id="controls">
-				<input id="clear" type="button" value="Clear State"/><br/>
 				<input id="newWord" type="text" value=""/>
 				<input id="add" type="button" value="Add"/>
 				Or
