@@ -363,7 +363,7 @@ function stateUpdated() {
 			if (curr) {
 				updateCurrent(curr);
 			}
-
+		}
 
 	} else {
 		lastId = 1;
