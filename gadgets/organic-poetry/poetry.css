@@ -47,3 +47,9 @@
 	background: #ddddff !important;
 	border-color: #0000ff;
 }
+
+#user-guide {
+	position: absolute;
+	top: 0;
+	right: 0;
+}
