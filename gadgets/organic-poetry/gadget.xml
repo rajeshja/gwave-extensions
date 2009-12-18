@@ -22,8 +22,9 @@
 						src="http://github.com/rajeshja/gwave-extensions/raw/master/gadgets/organic-poetry/organic.js"></script>
 		<div id="op-container">
 			<div id="debug">Waiting for dragging the image get started...</div>
-			<div id="user-guide">
-				<ul>
+			<div id="user-guide-link"></div>
+			<div id="user-guide" class="hidden">
+				<ol>
 					<li>If you have newly inserted the gadget into a wave, all you will see is the "Start" node. If it's not Blue, click on it. If it's blue already, it's the current node/word.</li>
 					<li>Type a phrase or sentence into the little text box, and press Add.</li>
 					<li>Your sentence gets broken up into words, and a branch is created vertically below the current node.</li>
@@ -32,7 +33,7 @@
 					<li>Type in some more words to continue from the selected word, and press Add.</li>
 					<li>Move words around for readability.</li>
 					<li>Select another word and Repeat.</li>
-				</ul>
+				</ol>
 			</div>
 			<div id="controls">
 				<input id="clear" type="button" value="Clear State"/><br/>

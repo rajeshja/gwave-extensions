@@ -53,3 +53,34 @@
 	top: 0;
 	right: 0;
 }
+
+#user-guide-link {
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 20px;
+	height: 20px;
+	background: url(images/help.png);
+	z-index: 25;
+	cursor: pointer;
+}
+
+#user-guide {
+	position: absolute;
+	width: 290px;
+	border: 1px solid #00a000;
+	background: white;
+	top: 0;
+	right: 0;
+	z-index: 20;
+}
+
+#user-guide ol {
+	padding: 0 10px 0 25px;
+	
+	text-indent: 0;
+}
+
+.hidden {
+	display: none;
+}
